@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,24 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ScopeClaim>()
+                .ToTable(EfConstants.TableNames.ScopeClaim, Schema)
+                .Property(e => e.Name).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<ScopeClaim>()
+                .Property(e => e.Description).HasMaxLength(1000);
+
             modelBuilder.Entity<Scope>()
-                .ToTable(EfConstants.TableNames.Scope);
+                .ToTable(EfConstants.TableNames.Scope, Schema)
+                .HasMany(e => e.ScopeClaims).WithOne(e => e.Scope).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Scope>()
+                .Property(e => e.Name).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<Scope>()
+                .Property(e => e.DisplayName).HasMaxLength(200);
+            modelBuilder.Entity<Scope>()
+                .Property(e => e.Description).HasMaxLength(1000);
+            modelBuilder.Entity<Scope>()
+                .Property(e => e.ClaimsRule).HasMaxLength(200);
             
-                
         }
         //protected override void ConfigureChildCollections()
         //{
@@ -32,18 +47,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         //            }
         //        };
         //}
-
         
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<Scope>()
-        //        .ToTable(EfConstants.TableNames.Scope, Schema)
-        //        .HasMany(x => x.ScopeClaims).WithRequired(x => x.Scope).WillCascadeOnDelete();
-
-        //    modelBuilder.Entity<ScopeClaim>().ToTable(EfConstants.TableNames.ScopeClaim, Schema);
-        //}
     }
 }

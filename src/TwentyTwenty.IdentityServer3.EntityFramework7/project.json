@@ -9,12 +9,17 @@
     "defaultNamespace": "TwentyTwenty.IdentityServer3.EntityFramework7"
   },
   "dependencies": {
+    "AutoMapper": "4.0.0",
     "IdentityServer3": "2.1.1",
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework.InMemory": "7.0.0-rc1-final",
     "EntityFramework.Relational": "7.0.0-rc1-final"
   },
   "frameworks": {
-    "net451": { }
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": "4.0.10.0" 
+      }
+    }
   }
 }
