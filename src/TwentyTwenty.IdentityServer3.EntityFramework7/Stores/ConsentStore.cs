@@ -9,7 +9,7 @@ using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
-    // NOTE: FindAsync is slated to be back in the RTM of 7.0. 
+    // TODO: FindAsync is slated to be back in the RTM of 7.0. 
     //      For how, Where and FirstOrDefaultAsync will have to make due
     public class ConsentStore : IConsentStore
     {

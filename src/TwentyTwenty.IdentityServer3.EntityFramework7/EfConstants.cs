@@ -2,8 +2,6 @@
 {
     class EfConstants
     {
-        public const string ConnectionName = "IdentityServer33";
-
         public class TableNames
         {
             public const string Client = "Clients";

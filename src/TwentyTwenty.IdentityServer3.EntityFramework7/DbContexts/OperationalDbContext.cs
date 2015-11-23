@@ -12,7 +12,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 
         public DbSet<Consent> Consents { get; set; }
 
-        //public DbSet<Token> Tokens { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,16 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
             modelBuilder.Entity<Consent>()
                 .ToTable(EfConstants.TableNames.Consent)
                 .Property(e => e.Scopes).IsRequired().HasMaxLength(2000);
-            //modelBuilder.Entity<Token>().ToTable(EfConstants.TableNames.Token);
+
+            modelBuilder.Entity<Token>()
+                .ToTable(EfConstants.TableNames.Token)
+                .Property(e => e.SubjectId).HasMaxLength(200);
+            modelBuilder.Entity<Token>()
+                .Property(e => e.ClientId).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<Token>()
+                .Property(e => e.JsonCode).IsRequired().HasColumnType("varchar(max)");
+            modelBuilder.Entity<Token>()
+                .Property(e => e.Expiry).IsRequired();
         }
     }
 }
