@@ -1,6 +1,7 @@
 ﻿using IdentityServer3.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
@@ -37,14 +38,19 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
         public virtual ICollection<ClientScope> AllowedScopes { get; set; }
 
         // Seconds
+        [Range(0, Int32.MaxValue)]
         public virtual int IdentityTokenLifetime { get; set; }
 
+        [Range(0, Int32.MaxValue)]
         public virtual int AccessTokenLifetime { get; set; }
 
+        [Range(0, Int32.MaxValue)]
         public virtual int AuthorizationCodeLifetime { get; set; }
 
+        [Range(0, Int32.MaxValue)]
         public virtual int AbsoluteRefreshTokenLifetime { get; set; }
 
+        [Range(0, Int32.MaxValue)]
         public virtual int SlidingRefreshTokenLifetime { get; set; }
 
         public virtual TokenUsage RefreshTokenUsage { get; set; }

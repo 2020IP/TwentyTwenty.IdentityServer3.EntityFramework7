@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity.Metadata;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
@@ -19,7 +20,23 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
-                .ToTable(EfConstants.TableNames.Client, Schema)
+                .ToTable(EfConstants.TableNames.Scope, Schema)
+                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.RedirectUris).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.PostLogoutRedirectUris).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.AllowedScopes).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.IdentityProviderRestrictions).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.AllowedCustomGrantTypes).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.AllowedCorsOrigins).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Client>()
                 .HasIndex(e => e.ClientId).IsUnique();
             modelBuilder.Entity<Client>()
                 .Property(e => e.ClientId).IsRequired().HasMaxLength(200);
@@ -87,41 +104,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         //                }
         //            }
         //        };
-        //}
-
-
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<Client>()
-        //        .ToTable(EfConstants.TableNames.Client, Schema);
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.ClientSecrets).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.RedirectUris).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.PostLogoutRedirectUris).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.AllowedScopes).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.IdentityProviderRestrictions).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.Claims).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.AllowedCustomGrantTypes).WithRequired(x => x.Client).WillCascadeOnDelete();
-        //    modelBuilder.Entity<Client>()
-        //        .HasMany(x => x.AllowedCorsOrigins).WithRequired(x => x.Client).WillCascadeOnDelete();
-
-        //    modelBuilder.Entity<ClientSecret>().ToTable(EfConstants.TableNames.ClientSecret, Schema);
-        //    modelBuilder.Entity<ClientRedirectUri>().ToTable(EfConstants.TableNames.ClientRedirectUri, Schema);
-        //    modelBuilder.Entity<ClientPostLogoutRedirectUri>().ToTable(EfConstants.TableNames.ClientPostLogoutRedirectUri, Schema);
-        //    modelBuilder.Entity<ClientScope>().ToTable(EfConstants.TableNames.ClientScopes, Schema);
-        //    modelBuilder.Entity<ClientIdPRestriction>().ToTable(EfConstants.TableNames.ClientIdPRestriction, Schema);
-        //    modelBuilder.Entity<ClientClaim>().ToTable(EfConstants.TableNames.ClientClaim, Schema);
-        //    modelBuilder.Entity<ClientCustomGrantType>().ToTable(EfConstants.TableNames.ClientCustomGrantType, Schema);
-        //    modelBuilder.Entity<ClientCorsOrigin>().ToTable(EfConstants.TableNames.ClientCorsOrigin, Schema);
         //}
     }
 }
