@@ -3,26 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ScopeConfigurationDbContext : DbContext
+    public class ScopeConfigurationDbContext : BaseDbContext
     {
-        //public ScopeConfigurationDbContext()
-        //    : this(EfConstants.ConnectionName)
-        //{
-        //}
+        public DbSet<Scope> Scopes { get; set; }
 
-        //public ScopeConfigurationDbContext(string connectionString)
-        //    : base(connectionString)
-        //{
-        //}
-
-        //public ScopeConfigurationDbContext(string connectionString, string schema)
-        //    : base(connectionString, schema)
-        //{
-        //}
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Scope>()
+                .ToTable(EfConstants.TableNames.Scope);
+            
+                
+        }
         //protected override void ConfigureChildCollections()
         //{
         //    this.Set<Scope>().Local.CollectionChanged +=
@@ -38,7 +33,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         //        };
         //}
 
-        //public DbSet<Scope> Scopes { get; set; }
+        
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

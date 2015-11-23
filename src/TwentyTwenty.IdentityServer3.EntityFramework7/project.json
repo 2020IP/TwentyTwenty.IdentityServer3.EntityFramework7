@@ -11,7 +11,8 @@
   "dependencies": {
     "IdentityServer3": "2.1.1",
     "EntityFramework.Core": "7.0.0-rc1-final",
-    "EntityFramework.InMemory": "7.0.0-rc1-final"
+    "EntityFramework.InMemory": "7.0.0-rc1-final",
+    "EntityFramework.Relational": "7.0.0-rc1-final"
   },
   "frameworks": {
     "net451": { }
