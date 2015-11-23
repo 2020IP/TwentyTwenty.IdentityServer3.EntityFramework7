@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
     public class ScopeConfigurationDbContext : BaseDbContext
     {
+        public ScopeConfigurationDbContext(DbContextOptions options)
+            : base(options)
+        { }
+
         public DbSet<Scope> Scopes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

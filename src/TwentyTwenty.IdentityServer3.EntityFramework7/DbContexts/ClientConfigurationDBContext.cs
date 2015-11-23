@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
     public class ClientConfigurationDbContext : BaseDbContext
     {
+        public ClientConfigurationDbContext(DbContextOptions options)
+            : base(options)
+        { }
+
         public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
