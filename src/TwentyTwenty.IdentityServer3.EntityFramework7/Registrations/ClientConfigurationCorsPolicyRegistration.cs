@@ -7,13 +7,15 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Services;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Registrations
 {
-    public class ClientConfigurationCorsPolicyRegistration : Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService>
+    public class ClientConfigurationCorsPolicyRegistration : 
+        Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService>
     {
-        public ClientConfigurationCorsPolicyRegistration(EntityFrameworkServiceOptions options)
+        public ClientConfigurationCorsPolicyRegistration(DbContextOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
 
-            AdditionalRegistrations.Add(new Registration<ClientConfigurationDbContext>(resolver => new ClientConfigurationDbContext(options.Options)));
+            AdditionalRegistrations.Add(new Registration<ClientConfigurationDbContext>(resolver => 
+                new ClientConfigurationDbContext(options)));
         }
     }
 }
