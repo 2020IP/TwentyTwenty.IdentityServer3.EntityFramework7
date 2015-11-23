@@ -1,6 +1,6 @@
-﻿using IdentityServer3.Core.Models;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
