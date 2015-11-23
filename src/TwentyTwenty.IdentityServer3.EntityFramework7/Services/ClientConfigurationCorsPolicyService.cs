@@ -1,7 +1,6 @@
 ﻿using IdentityServer3.Core.Services;
 using Microsoft.Data.Entity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
