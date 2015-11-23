@@ -8,17 +8,12 @@
   "tooling": {
     "defaultNamespace": "TwentyTwenty.IdentityServer3.EntityFramework7"
   },
-
+  "dependencies": {
+    "IdentityServer3": "2.1.1",
+    "EntityFramework.Core": "7.0.0-rc1-final",
+    "EntityFramework.InMemory": "7.0.0-rc1-final"
+  },
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-*",
-        "System.Collections": "4.0.11-beta-*",
-        "System.Linq": "4.0.1-beta-*",
-        "System.Runtime": "4.0.21-beta-*",
-        "System.Threading": "4.0.11-beta-*"
-      }
-    }
+    "net451": { }
   }
 }
