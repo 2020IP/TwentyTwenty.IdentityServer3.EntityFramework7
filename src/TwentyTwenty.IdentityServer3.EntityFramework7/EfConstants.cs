@@ -9,7 +9,7 @@
             public const string Client = "Clients";
             public const string ClientClaim = "ClientClaims";
             public const string ClientCustomGrantType = "ClientCustomGrantTypes";
-            public const string ClientIdPRestriction = "ClientIdPRestrictions";
+            public const string ClientProviderRestriction = "ClientProviderRestrictions";
             public const string ClientPostLogoutRedirectUri = "ClientPostLogoutRedirectUris";
             public const string ClientRedirectUri = "ClientRedirectUris";
             public const string ClientScopes = "ClientScopes";

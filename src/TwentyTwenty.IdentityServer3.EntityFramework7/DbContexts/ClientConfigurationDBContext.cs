@@ -14,9 +14,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
+                .ToTable(EfConstants.TableNames.Client, Schema)
                 .HasIndex(e => e.ClientId).IsUnique();
-            modelBuilder.Entity<Client>()
-                .ToTable(EfConstants.TableNames.Client, Schema);
             modelBuilder.Entity<Client>()
                 .Property(e => e.ClientId).IsRequired().HasMaxLength(200);
             modelBuilder.Entity<Client>()
@@ -25,29 +24,37 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
                 .Property(e => e.ClientUri).HasMaxLength(2000);
 
             modelBuilder.Entity<ClientClaim>()
+                .ToTable(EfConstants.TableNames.ClientClaim, Schema)
                 .Property(e => e.Type).IsRequired().HasMaxLength(250);
             modelBuilder.Entity<ClientClaim>()
                 .Property(e => e.Value).IsRequired().HasMaxLength(250);
 
             modelBuilder.Entity<ClientCorsOrigin>()
+                .ToTable(EfConstants.TableNames.ClientCorsOrigin, Schema)
                 .Property(e => e.Origin).IsRequired().HasMaxLength(150);
 
             modelBuilder.Entity<ClientCustomGrantType>()
+                .ToTable(EfConstants.TableNames.ClientCustomGrantType, Schema)
                 .Property(e => e.GrantType).IsRequired().HasMaxLength(250);
 
             modelBuilder.Entity<ClientPostLogoutRedirectUri>()
+                .ToTable(EfConstants.TableNames.ClientPostLogoutRedirectUri, Schema)
                 .Property(e => e.Uri).IsRequired().HasMaxLength(2000);
 
             modelBuilder.Entity<ClientProviderRestriction>()
+                .ToTable(EfConstants.TableNames.ClientProviderRestriction, Schema)
                 .Property(e => e.Provider).IsRequired().HasMaxLength(200);
 
             modelBuilder.Entity<ClientRedirectUri>()
+                .ToTable(EfConstants.TableNames.ClientRedirectUri, Schema)
                 .Property(e => e.Uri).IsRequired().HasMaxLength(2000);
 
             modelBuilder.Entity<ClientScope>()
+                .ToTable(EfConstants.TableNames.ClientScopes, Schema)
                 .Property(e => e.Scope).IsRequired().HasMaxLength(200);
 
             modelBuilder.Entity<ClientSecret>()
+                .ToTable(EfConstants.TableNames.ClientSecret, Schema)
                 .Property(e => e.Value).IsRequired().HasMaxLength(250);
             modelBuilder.Entity<ClientSecret>()
                 .Property(e => e.Type).HasMaxLength(250);

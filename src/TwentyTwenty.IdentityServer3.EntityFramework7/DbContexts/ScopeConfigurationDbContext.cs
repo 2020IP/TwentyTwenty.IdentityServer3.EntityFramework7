@@ -31,7 +31,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
                 .Property(e => e.Description).HasMaxLength(1000);
             modelBuilder.Entity<Scope>()
                 .Property(e => e.ClaimsRule).HasMaxLength(200);
-            
+
         }
         //protected override void ConfigureChildCollections()
         //{
