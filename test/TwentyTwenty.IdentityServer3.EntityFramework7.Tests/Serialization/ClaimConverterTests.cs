@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IdentityServer3.Core;
+using Newtonsoft.Json;
+using System.Security.Claims;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Serialization;
+using Xunit;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Tests.Serialization
 {

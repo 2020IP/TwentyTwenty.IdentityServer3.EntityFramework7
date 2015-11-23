@@ -1,33 +1,39 @@
-﻿//using Newtonsoft.Json;
-//using System;
-//using System.Security.Claims;
+﻿using Newtonsoft.Json;
+using System;
+using System.Security.Claims;
 
-//namespace TwentyTwenty.IdentityServer3.EntityFramework7.Serialization
-//{
-//    public class ClaimConverter : JsonConverter
-//    {
-//        public override bool CanConvert(Type objectType)
-//        {
-//            return typeof(Claim) == objectType;
-//        }
+namespace TwentyTwenty.IdentityServer3.EntityFramework7.Serialization
+{
+    public class ClaimLite
+    {
+        public string Type { get; set; }
+        public string Value { get; set; }
+    }
 
-//        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-//        {
-//            var source = serializer.Deserialize<ClaimLite>(reader);
-//            var target = new Claim(source.Type, source.Value);
-//            return target;
-//        }
+    public class ClaimConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return typeof(Claim) == objectType;
+        }
 
-//        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//        {
-//            Claim source = (Claim)value;
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var source = serializer.Deserialize<ClaimLite>(reader);
+            var target = new Claim(source.Type, source.Value);
+            return target;
+        }
 
-//            var target = new ClaimLite
-//            {
-//                Type = source.Type,
-//                Value = source.Value
-//            };
-//            serializer.Serialize(writer, target);
-//        }
-//    }
-//}
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            Claim source = (Claim)value;
+
+            var target = new ClaimLite
+            {
+                Type = source.Type,
+                Value = source.Value
+            };
+            serializer.Serialize(writer, target);
+        }
+    }
+}
