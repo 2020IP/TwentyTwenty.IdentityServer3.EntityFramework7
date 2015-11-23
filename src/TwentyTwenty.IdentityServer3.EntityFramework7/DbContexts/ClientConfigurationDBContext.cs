@@ -21,21 +21,21 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         {
             modelBuilder.Entity<Client>()
                 .ToTable(EfConstants.TableNames.Scope)
-                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.RedirectUris).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.RedirectUris).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.PostLogoutRedirectUris).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.PostLogoutRedirectUris).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.AllowedScopes).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.AllowedScopes).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.IdentityProviderRestrictions).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.IdentityProviderRestrictions).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.AllowedCustomGrantTypes).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.AllowedCustomGrantTypes).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
-                .HasMany(e => e.AllowedCorsOrigins).WithOne(e => e.Client).OnDelete(DeleteBehavior.Cascade);
+                .HasMany(e => e.AllowedCorsOrigins).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
                 .HasIndex(e => e.ClientId).IsUnique();
             modelBuilder.Entity<Client>()

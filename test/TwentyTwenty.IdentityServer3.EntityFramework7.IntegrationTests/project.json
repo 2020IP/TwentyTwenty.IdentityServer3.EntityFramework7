@@ -14,7 +14,8 @@
     "AutoMapper": "4.0.0",
     "EntityFramework.InMemory": "7.0.0-rc1-final",
     "IdentityServer3": "2.1.1",
-    "TwentyTwenty.IdentityServer3.EntityFramework7": "1.0.0-*"
+    "TwentyTwenty.IdentityServer3.EntityFramework7": "1.0.0-*",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
   },
   "frameworks": {
     "dnx451": { }

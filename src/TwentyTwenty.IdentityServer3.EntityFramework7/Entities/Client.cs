@@ -7,6 +7,18 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
     public class Client
     {
+        //public Client()
+        //{
+        //    ClientSecrets = new HashSet<ClientSecret>();
+        //    RedirectUris = new HashSet<ClientRedirectUri>();
+        //    PostLogoutRedirectUris = new HashSet<ClientPostLogoutRedirectUri>();
+        //    AllowedScopes = new HashSet<ClientScope>();
+        //    IdentityProviderRestrictions = new HashSet<ClientProviderRestriction>();
+        //    Claims = new HashSet<ClientClaim>();
+        //    AllowedCustomGrantTypes = new HashSet<ClientCustomGrantType>();
+        //    AllowedCorsOrigins = new HashSet<ClientCorsOrigin>();
+        //}
+
         public virtual Guid Id { get; set; }
 
         public virtual bool Enabled { get; set; }

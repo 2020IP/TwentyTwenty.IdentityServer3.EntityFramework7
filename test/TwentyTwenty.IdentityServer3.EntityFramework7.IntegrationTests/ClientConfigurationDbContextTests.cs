@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
+using System.Collections.Generic;
 using System.Linq;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
@@ -37,6 +38,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
             {
                 var client = db.Clients.First();
 
+                client.AllowedScopes = new HashSet<ClientScope>();
                 client.AllowedScopes.Add(new ClientScope
                 {
                     Scope = "test"
@@ -47,7 +49,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
             using (var db = new ClientConfigurationDbContext(_options))
             {
-                var client = db.Clients.First();
+                var client = db.Clients
+                    .Include(e => e.AllowedScopes)
+                    .First();
                 var scope = client.AllowedScopes.First();
 
                 client.AllowedScopes.Remove(scope);
@@ -57,7 +61,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
             using (var db = new ClientConfigurationDbContext(_options))
             {
-                var client = db.Clients.First();
+                var client = db.Clients
+                    .Include(e => e.AllowedScopes)
+                    .First();
 
                 Assert.Equal(0, client.AllowedScopes.Count());
             }
@@ -79,8 +85,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
             using (var db = new ClientConfigurationDbContext(_options))
             {
-                var client = db.Clients.First();
+                var client = db.Clients                    
+                    .First();
 
+                client.RedirectUris = new HashSet<ClientRedirectUri>();
                 client.RedirectUris.Add(new ClientRedirectUri
                 {
                     Uri = "https://redirect-uri-1"
@@ -91,7 +99,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
             using (var db = new ClientConfigurationDbContext(_options))
             {
-                var client = db.Clients.First();
+                var client = db.Clients
+                    .Include(e => e.RedirectUris)
+                    .First();
                 var redirectUri = client.RedirectUris.First();
 
                 client.RedirectUris.Remove(redirectUri);
@@ -101,7 +111,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
             using (var db = new ClientConfigurationDbContext(_options))
             {
-                var client = db.Clients.First();
+                var client = db.Clients
+                    .Include(e => e.RedirectUris)
+                    .First();
 
                 Assert.Equal(0, client.RedirectUris.Count());
             }
