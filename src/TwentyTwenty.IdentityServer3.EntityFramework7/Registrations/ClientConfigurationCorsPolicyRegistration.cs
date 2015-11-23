@@ -9,11 +9,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Registrations
 {
     public class ClientConfigurationCorsPolicyRegistration : Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService>
     {
-        public ClientConfigurationCorsPolicyRegistration(DbContextOptions options)
+        public ClientConfigurationCorsPolicyRegistration(EntityFrameworkServiceOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
 
-            AdditionalRegistrations.Add(new Registration<ClientConfigurationDbContext>(resolver => new ClientConfigurationDbContext(options)));
+            AdditionalRegistrations.Add(new Registration<ClientConfigurationDbContext>(resolver => new ClientConfigurationDbContext(options.Options)));
         }
     }
 }
