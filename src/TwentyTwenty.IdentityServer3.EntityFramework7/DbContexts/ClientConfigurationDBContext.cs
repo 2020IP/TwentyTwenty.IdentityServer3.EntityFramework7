@@ -1,9 +1,9 @@
-﻿using IdentityServer3.Core.Models;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
@@ -13,8 +13,46 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Scope>()
-                .ToTable(EfConstants.TableNames.Client);
+            modelBuilder.Entity<Client>()
+                .HasIndex(e => e.ClientId).IsUnique();
+            modelBuilder.Entity<Client>()
+                .ToTable(EfConstants.TableNames.Client, Schema);
+            modelBuilder.Entity<Client>()
+                .Property(e => e.ClientId).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<Client>()
+                .Property(e => e.ClientName).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<Client>()
+                .Property(e => e.ClientUri).HasMaxLength(2000);
+
+            modelBuilder.Entity<ClientClaim>()
+                .Property(e => e.Type).IsRequired().HasMaxLength(250);
+            modelBuilder.Entity<ClientClaim>()
+                .Property(e => e.Value).IsRequired().HasMaxLength(250);
+
+            modelBuilder.Entity<ClientCorsOrigin>()
+                .Property(e => e.Origin).IsRequired().HasMaxLength(150);
+
+            modelBuilder.Entity<ClientCustomGrantType>()
+                .Property(e => e.GrantType).IsRequired().HasMaxLength(250);
+
+            modelBuilder.Entity<ClientPostLogoutRedirectUri>()
+                .Property(e => e.Uri).IsRequired().HasMaxLength(2000);
+
+            modelBuilder.Entity<ClientProviderRestriction>()
+                .Property(e => e.Provider).IsRequired().HasMaxLength(200);
+
+            modelBuilder.Entity<ClientRedirectUri>()
+                .Property(e => e.Uri).IsRequired().HasMaxLength(2000);
+
+            modelBuilder.Entity<ClientScope>()
+                .Property(e => e.Scope).IsRequired().HasMaxLength(200);
+
+            modelBuilder.Entity<ClientSecret>()
+                .Property(e => e.Value).IsRequired().HasMaxLength(250);
+            modelBuilder.Entity<ClientSecret>()
+                .Property(e => e.Type).HasMaxLength(250);
+            modelBuilder.Entity<ClientSecret>()
+                .Property(e => e.Description).HasMaxLength(2000);
         }
 
         //protected override void ConfigureChildCollections()
