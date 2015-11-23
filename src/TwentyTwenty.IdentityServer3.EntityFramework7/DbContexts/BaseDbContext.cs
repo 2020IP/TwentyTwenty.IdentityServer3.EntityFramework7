@@ -9,8 +9,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
     public abstract class BaseDbContext : DbContext
     {
-        public BaseDbContext(DbContextOptions options) : base(options) { }
-
-        public string Schema { get; protected set; }
+        public BaseDbContext(DbContextOptions options) 
+            : base(options)
+        { }
     }
 }

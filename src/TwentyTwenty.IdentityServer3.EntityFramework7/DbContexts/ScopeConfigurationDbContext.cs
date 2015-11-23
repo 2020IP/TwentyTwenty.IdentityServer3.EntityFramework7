@@ -20,13 +20,13 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ScopeClaim>()
-                .ToTable(EfConstants.TableNames.ScopeClaim, Schema)
+                .ToTable(EfConstants.TableNames.ScopeClaim)
                 .Property(e => e.Name).IsRequired().HasMaxLength(200);
             modelBuilder.Entity<ScopeClaim>()
                 .Property(e => e.Description).HasMaxLength(1000);
 
             modelBuilder.Entity<Scope>()
-                .ToTable(EfConstants.TableNames.Scope, Schema)
+                .ToTable(EfConstants.TableNames.Scope)
                 .HasMany(e => e.ScopeClaims).WithOne(e => e.Scope).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Scope>()
                 .Property(e => e.Name).IsRequired().HasMaxLength(200);
