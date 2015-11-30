@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models = IdentityServer3.Core.Models;
-using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using Microsoft.Data.Entity;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class ScopeStore : IScopeStore
     {
-        private readonly ScopeConfigurationDbContext _context;
+        private readonly IScopeConfigurationDbContext _context;
 
-        public ScopeStore(ScopeConfigurationDbContext context)
+        public ScopeStore(IScopeConfigurationDbContext context)
         {
             if (context == null)
             {

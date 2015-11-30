@@ -2,17 +2,17 @@
 using Microsoft.Data.Entity;
 using System;
 using System.Threading.Tasks;
-using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class ClientStore : IClientStore
     {
-        private readonly ClientConfigurationDbContext context;
+        private readonly IClientConfigurationDbContext context;
 
-        public ClientStore(ClientConfigurationDbContext context)
+        public ClientStore(IClientConfigurationDbContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 
