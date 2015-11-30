@@ -1,10 +1,11 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class OperationalDbContext : BaseDbContext
+    public class OperationalDbContext : BaseDbContext, IOperationalDbContext
     {
         public OperationalDbContext(DbContextOptions options)
             : base(options)
