@@ -1,15 +1,12 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ScopeConfigurationDbContext : BaseDbContext
+    public class ScopeConfigurationDbContext : BaseDbContext, IScopeConfigurationDbContext
     {
         public ScopeConfigurationDbContext(DbContextOptions options)
             : base(options)

@@ -1,15 +1,12 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Data.Entity.Metadata;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ClientConfigurationDbContext : BaseDbContext
+    public class ClientConfigurationDbContext : BaseDbContext, IClientConfigurationDbContext
     {
         public ClientConfigurationDbContext(DbContextOptions options)
             : base(options)
