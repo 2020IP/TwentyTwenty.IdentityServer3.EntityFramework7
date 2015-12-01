@@ -17,7 +17,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
-                .ToTable(EfConstants.TableNames.Scope)
+                .ToTable(EfConstants.TableNames.Client)
                 .HasMany(e => e.ClientSecrets).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Client>()
                 .HasMany(e => e.RedirectUris).WithOne(e => e.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
