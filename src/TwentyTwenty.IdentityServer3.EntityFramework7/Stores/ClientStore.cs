@@ -10,9 +10,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class ClientStore : IClientStore
     {
-        private readonly IClientConfigurationDbContext context;
+        private readonly IClientConfigurationContext context;
 
-        public ClientStore(IClientConfigurationDbContext context)
+        public ClientStore(IClientConfigurationContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 

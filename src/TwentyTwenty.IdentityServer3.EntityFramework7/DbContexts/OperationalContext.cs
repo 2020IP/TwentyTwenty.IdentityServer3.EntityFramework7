@@ -5,7 +5,7 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class OperationalContext : BaseContext, IOperationalDbContext
+    public class OperationalContext : BaseContext, IOperationalContext
     {
         public OperationalContext(DbContextOptions options)
             : base(options)

@@ -5,7 +5,7 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces
 {
-    public interface IOperationalDbContext : IDisposable
+    public interface IOperationalContext : IDisposable
     {
         DbSet<Consent> Consents { get; set; }
 

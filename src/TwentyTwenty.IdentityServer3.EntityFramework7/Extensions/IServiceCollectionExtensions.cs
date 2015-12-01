@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<IOperationalDbContext, OperationalContext>()
+                .AddTransient<IOperationalContext, OperationalContext>()
                 .AddTransient<ITokenHandleStore, TokenHandleStore>()
                 .AddTransient<IAuthorizationCodeStore, AuthorizationCodeStore>()
                 .AddTransient<IConsentStore, ConsentStore>()
@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<IClientConfigurationDbContext, ClientConfigurationContext>()
+                .AddTransient<IClientConfigurationContext, ClientConfigurationContext>()
                 .AddTransient<IClientStore, ClientStore>();
         }
 
@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<IScopeConfigurationDbContext, ScopeConfigurationContext>()
+                .AddTransient<IScopeConfigurationContext, ScopeConfigurationContext>()
                 .AddTransient<IScopeStore, ScopeStore>();
         }
 

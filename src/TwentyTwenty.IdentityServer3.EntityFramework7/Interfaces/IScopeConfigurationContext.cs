@@ -3,8 +3,8 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces
 {
-    public interface IClientConfigurationDbContext
+    public interface IScopeConfigurationContext
     {
-        DbSet<Client> Clients { get; set; }
+        DbSet<Scope> Scopes { get; set; }
     }
 }

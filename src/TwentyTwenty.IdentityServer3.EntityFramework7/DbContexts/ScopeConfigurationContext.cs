@@ -6,7 +6,7 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ScopeConfigurationContext : BaseContext, IScopeConfigurationDbContext
+    public class ScopeConfigurationContext : BaseContext, IScopeConfigurationContext
     {
         public ScopeConfigurationContext(DbContextOptions options)
             : base(options)

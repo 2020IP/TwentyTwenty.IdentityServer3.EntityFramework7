@@ -12,9 +12,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class ScopeStore : IScopeStore
     {
-        private readonly IScopeConfigurationDbContext _context;
+        private readonly IScopeConfigurationContext _context;
 
-        public ScopeStore(IScopeConfigurationDbContext context)
+        public ScopeStore(IScopeConfigurationContext context)
         {
             if (context == null)
             {
