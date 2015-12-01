@@ -20,7 +20,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Consent>()
-                .ToTable(EfConstants.TableNames.Consent)
+                .ToTable(EfConstants.TableNames.Consent)                
                 .Property(e => e.Subject).HasMaxLength(200);
             modelBuilder.Entity<Consent>()
                 .ToTable(EfConstants.TableNames.Consent)
@@ -28,6 +28,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
             modelBuilder.Entity<Consent>()
                 .ToTable(EfConstants.TableNames.Consent)
                 .Property(e => e.Scopes).IsRequired().HasMaxLength(2000);
+            modelBuilder.Entity<Consent>()
+                .HasKey(e => new { e.Subject, e.ClientId });
 
             modelBuilder.Entity<Token>()
                 .ToTable(EfConstants.TableNames.Token)
@@ -38,6 +40,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
                 .Property(e => e.JsonCode).IsRequired().HasColumnType("varchar(max)");
             modelBuilder.Entity<Token>()
                 .Property(e => e.Expiry).IsRequired();
+            modelBuilder.Entity<Token>()
+                .HasKey(e => new { e.Key, e.TokenType });
         }
     }
 }
