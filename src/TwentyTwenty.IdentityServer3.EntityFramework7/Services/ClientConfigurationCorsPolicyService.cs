@@ -10,9 +10,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Services
 {
     public class ClientConfigurationCorsPolicyService : ICorsPolicyService
     {
-        readonly ClientConfigurationDbContext context;
+        readonly ClientConfigurationContext context;
 
-        public ClientConfigurationCorsPolicyService(ClientConfigurationDbContext ctx)
+        public ClientConfigurationCorsPolicyService(ClientConfigurationContext ctx)
         {
             context = ctx;
         }

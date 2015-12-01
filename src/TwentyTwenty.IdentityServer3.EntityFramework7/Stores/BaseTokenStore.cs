@@ -16,7 +16,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
     //      For how, Where and FirstOrDefaultAsync will have to make due
     public abstract class BaseTokenStore<T> where T : class
     {
-        protected readonly OperationalDbContext context;
+        protected readonly OperationalContext context;
         protected readonly TokenType tokenType;
         protected readonly IScopeStore scopeStore;
         private readonly IClientStore clientStore;
@@ -29,7 +29,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             }
         }
 
-        protected BaseTokenStore(OperationalDbContext context, TokenType tokenType, IScopeStore scopeStore, IClientStore clientStore)
+        protected BaseTokenStore(OperationalContext context, TokenType tokenType, IScopeStore scopeStore, IClientStore clientStore)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (scopeStore == null) throw new ArgumentNullException("scopeStore");

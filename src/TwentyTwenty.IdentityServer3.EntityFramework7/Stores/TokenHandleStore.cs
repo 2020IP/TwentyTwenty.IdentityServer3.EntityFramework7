@@ -8,7 +8,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class TokenHandleStore : BaseTokenStore<Token>, ITokenHandleStore
     {
-        public TokenHandleStore(OperationalDbContext context, IScopeStore scopeStore, IClientStore clientStore)
+        public TokenHandleStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, Entities.TokenType.TokenHandle, scopeStore, clientStore)
         {
         }

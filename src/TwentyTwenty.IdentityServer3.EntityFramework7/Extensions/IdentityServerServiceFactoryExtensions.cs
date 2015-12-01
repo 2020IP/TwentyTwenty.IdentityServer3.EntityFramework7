@@ -16,7 +16,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             if (factory == null) throw new ArgumentNullException("factory");
             if (options == null) throw new ArgumentNullException("options");
 
-            factory.Register(new Registration<IOperationalDbContext>(resolver => new OperationalDbContext(options)));
+            factory.Register(new Registration<IOperationalDbContext>(resolver => new OperationalContext(options)));
             factory.AuthorizationCodeStore = new Registration<IAuthorizationCodeStore, AuthorizationCodeStore>();
             factory.TokenHandleStore = new Registration<ITokenHandleStore, TokenHandleStore>();
             factory.ConsentStore = new Registration<IConsentStore, ConsentStore>();
@@ -34,7 +34,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             if (factory == null) throw new ArgumentNullException("factory");
             if (options == null) throw new ArgumentNullException("options");
 
-            factory.Register(new Registration<IClientConfigurationDbContext>(resolver => new ClientConfigurationDbContext(options)));
+            factory.Register(new Registration<IClientConfigurationDbContext>(resolver => new ClientConfigurationContext(options)));
             factory.ClientStore = new Registration<IClientStore, ClientStore>();
             factory.CorsPolicyService = new ClientConfigurationCorsPolicyRegistration(options);
         }
@@ -44,7 +44,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             if (factory == null) throw new ArgumentNullException("factory");
             if (options == null) throw new ArgumentNullException("options");
 
-            factory.Register(new Registration<IScopeConfigurationDbContext>(resolver => new ScopeConfigurationDbContext(options)));
+            factory.Register(new Registration<IScopeConfigurationDbContext>(resolver => new ScopeConfigurationContext(options)));
             factory.ScopeStore = new Registration<IScopeStore, ScopeStore>();
         }
     }

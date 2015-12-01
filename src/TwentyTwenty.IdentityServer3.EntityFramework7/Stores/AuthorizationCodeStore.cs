@@ -9,7 +9,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class AuthorizationCodeStore : BaseTokenStore<AuthorizationCode>, IAuthorizationCodeStore
     {
-        public AuthorizationCodeStore(OperationalDbContext context, IScopeStore scopeStore, IClientStore clientStore)
+        public AuthorizationCodeStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, TokenType.AuthorizationCode, scopeStore, clientStore)
         {
         }

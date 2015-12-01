@@ -15,7 +15,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
 
         public ClientConfigurationDbContextTests()
         {
-            var builder = new DbContextOptionsBuilder<ClientConfigurationDbContext>();
+            var builder = new DbContextOptionsBuilder<ClientConfigurationContext>();
             builder.UseInMemoryDatabase();
             _options = builder.Options;
         }
@@ -23,7 +23,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
         [Fact]
         public void CanAddAndDeleteClientScopes()
         {
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 db.Clients.Add(new Client
                 {
@@ -34,7 +34,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients.First();
 
@@ -47,7 +47,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients
                     .Include(e => e.AllowedScopes)
@@ -59,7 +59,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients
                     .Include(e => e.AllowedScopes)
@@ -72,7 +72,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
         [Fact]
         public void CanAddAndDeleteClientRedirectUri()
         {
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 db.Clients.Add(new Client
                 {
@@ -83,7 +83,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients                    
                     .First();
@@ -97,7 +97,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients
                     .Include(e => e.RedirectUris)
@@ -109,7 +109,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
                 db.SaveChanges();
             }
 
-            using (var db = new ClientConfigurationDbContext(_options))
+            using (var db = new ClientConfigurationContext(_options))
             {
                 var client = db.Clients
                     .Include(e => e.RedirectUris)

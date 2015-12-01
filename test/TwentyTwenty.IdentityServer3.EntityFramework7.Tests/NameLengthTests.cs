@@ -13,7 +13,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Tests
         [Fact]
         public void NamesAreNotMoreThan30Chars()
         {
-            var assembly = Assembly.GetAssembly(typeof(ClientConfigurationDbContext));
+            var assembly = Assembly.GetAssembly(typeof(ClientConfigurationContext));
             var query =
                 from t in assembly.GetTypes()
                 where t.Namespace == "IdentityServer3.EntityFramework.Entities"

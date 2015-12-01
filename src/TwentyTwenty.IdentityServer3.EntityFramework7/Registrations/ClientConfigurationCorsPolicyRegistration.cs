@@ -14,8 +14,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Registrations
         {
             if (options == null) throw new ArgumentNullException("options");
 
-            AdditionalRegistrations.Add(new Registration<ClientConfigurationDbContext>(resolver => 
-                new ClientConfigurationDbContext(options)));
+            AdditionalRegistrations.Add(new Registration<ClientConfigurationContext>(resolver => 
+                new ClientConfigurationContext(options)));
         }
     }
 }

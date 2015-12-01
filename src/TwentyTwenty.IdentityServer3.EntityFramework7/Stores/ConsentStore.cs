@@ -13,9 +13,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
     //      For how, Where and FirstOrDefaultAsync will have to make due
     public class ConsentStore : IConsentStore
     {
-        private readonly OperationalDbContext context;
+        private readonly OperationalContext context;
 
-        public ConsentStore(OperationalDbContext context)
+        public ConsentStore(OperationalContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 

@@ -13,7 +13,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
     //      For how, Where and FirstOrDefaultAsync will have to make due
     public class RefreshTokenStore : BaseTokenStore<RefreshToken>, IRefreshTokenStore
     {
-        public RefreshTokenStore(OperationalDbContext context, IScopeStore scopeStore, IClientStore clientStore)
+        public RefreshTokenStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, TokenType.RefreshToken, scopeStore, clientStore)
         {
         }

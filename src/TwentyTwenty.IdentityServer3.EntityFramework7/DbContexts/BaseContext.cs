@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public abstract class BaseDbContext : DbContext
+    public abstract class BaseContext : DbContext
     {
-        public BaseDbContext(DbContextOptions options) 
+        public BaseContext(DbContextOptions options) 
             : base(options)
         { }
     }

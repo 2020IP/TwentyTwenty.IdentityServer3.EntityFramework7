@@ -5,9 +5,9 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class OperationalDbContext : BaseDbContext, IOperationalDbContext
+    public class OperationalContext : BaseContext, IOperationalDbContext
     {
-        public OperationalDbContext(DbContextOptions options)
+        public OperationalContext(DbContextOptions options)
             : base(options)
         { }
 
