@@ -14,6 +14,7 @@
     "AutoMapper": "4.0.0",
     "Newtonsoft.Json": "7.0.1",
     "IdentityServer3": "2.1.1",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework.Relational": "7.0.0-rc1-final"
   },
