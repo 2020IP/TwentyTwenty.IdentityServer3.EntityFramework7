@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
+﻿namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
     public class Consent
     {

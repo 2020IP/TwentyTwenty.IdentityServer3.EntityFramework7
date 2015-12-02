@@ -14,7 +14,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     // TODO: FindAsync is slated to be back in the RTM of 7.0. 
     //      For how, Where and FirstOrDefaultAsync will have to make due
-    public abstract class BaseTokenStore<T> where T : class
+    public abstract class BaseTokenStore<TEntity>
+        where TEntity : class
     {
         protected readonly OperationalContext context;
         protected readonly TokenType tokenType;
@@ -51,17 +52,17 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             return settings;
         }
 
-        protected string ConvertToJson(T value)
+        protected string ConvertToJson(TEntity value)
         {
             return JsonConvert.SerializeObject(value, GetJsonSerializerSettings());
         }
 
-        protected T ConvertFromJson(string json)
+        protected TEntity ConvertFromJson(string json)
         {
-            return JsonConvert.DeserializeObject<T>(json, GetJsonSerializerSettings());
+            return JsonConvert.DeserializeObject<TEntity>(json, GetJsonSerializerSettings());
         }
 
-        public async Task<T> GetAsync(string key)
+        public async Task<TEntity> GetAsync(string key)
         {
             var token = await context.Tokens
                 .Where(x => x.Key == key && x.TokenType == tokenType)
@@ -109,6 +110,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             await context.SaveChangesAsync();
         }
 
-        public abstract Task StoreAsync(string key, T value);
+        public abstract Task StoreAsync(string key, TEntity value);
     }
 }

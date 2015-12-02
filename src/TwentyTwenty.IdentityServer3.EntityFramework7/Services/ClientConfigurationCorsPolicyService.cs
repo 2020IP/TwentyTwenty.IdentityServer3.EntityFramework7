@@ -8,11 +8,12 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Extensions;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Services
 {
-    public class ClientConfigurationCorsPolicyService : ICorsPolicyService
+    public class ClientConfigurationCorsPolicyService<TKey> : ICorsPolicyService
+        where TKey : IEquatable<TKey>
     {
-        readonly ClientConfigurationContext context;
+        readonly ClientConfigurationContext<TKey> context;
 
-        public ClientConfigurationCorsPolicyService(ClientConfigurationContext ctx)
+        public ClientConfigurationCorsPolicyService(ClientConfigurationContext<TKey> ctx)
         {
             context = ctx;
         }

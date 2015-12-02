@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Scope
+    public class Scope<TKey> where TKey : IEquatable<TKey>
     {
-        public virtual Guid Id { get; set; }
+        public virtual TKey Id { get; set; }
 
         public virtual bool Enabled { get; set; }
 
@@ -21,7 +21,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual int Type { get; set; }
 
-        public virtual ICollection<ScopeClaim> ScopeClaims { get; set; }
+        public virtual ICollection<ScopeClaim<TKey>> ScopeClaims { get; set; }
 
         public virtual bool IncludeAllClaimsForUser { get; set; }
 

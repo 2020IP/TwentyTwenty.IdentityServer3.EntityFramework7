@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using Xunit;
 
@@ -13,7 +10,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Tests
         [Fact]
         public void NamesAreNotMoreThan30Chars()
         {
-            var assembly = Assembly.GetAssembly(typeof(ClientConfigurationContext));
+            var assembly = Assembly.GetAssembly(typeof(ClientConfigurationContext<>));
             var query =
                 from t in assembly.GetTypes()
                 where t.Namespace == "IdentityServer3.EntityFramework.Entities"

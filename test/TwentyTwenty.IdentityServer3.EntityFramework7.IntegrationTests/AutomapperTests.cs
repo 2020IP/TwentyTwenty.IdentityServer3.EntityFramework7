@@ -13,11 +13,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.IntegrationTests
         {
             Models.Scope s = new Models.Scope() { };
 
-            var e = Models.EntitiesMap.ToEntity(s);
+            var e = Models.MappingExtensions.ToEntity<int>(s);
 
-            Scope s2 = new Scope()
+            var s2 = new Scope<int>()
             {
-                ScopeClaims = new HashSet<ScopeClaim>()
+                ScopeClaims = new HashSet<ScopeClaim<int>>()
             };
             var m = s2.ToModel();
 

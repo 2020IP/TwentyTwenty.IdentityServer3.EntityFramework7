@@ -2,9 +2,9 @@
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class ScopeClaim
+    public class ScopeClaim<TKey> where TKey : IEquatable<TKey>
     {
-        public virtual Guid Id { get; set; }
+        public virtual TKey Id { get; set; }
 
         public virtual string Name { get; set; }
 
@@ -12,6 +12,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual bool AlwaysIncludeInIdToken { get; set; }
 
-        public virtual Scope Scope { get; set; }
+        public virtual Scope<TKey> Scope { get; set; }
     }
 }

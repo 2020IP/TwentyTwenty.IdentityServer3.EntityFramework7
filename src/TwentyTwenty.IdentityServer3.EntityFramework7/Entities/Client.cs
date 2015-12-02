@@ -5,15 +5,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Client
+    public class Client<TKey>
+        where TKey : IEquatable<TKey>
     {
-        public virtual Guid Id { get; set; }
+        public virtual TKey Id { get; set; }
 
         public virtual bool Enabled { get; set; }
 
         public virtual string ClientId { get; set; }
 
-        public virtual ICollection<ClientSecret> ClientSecrets { get; set; }
+        public virtual ICollection<ClientSecret<TKey>> ClientSecrets { get; set; }
 
         public virtual string ClientName { get; set; }
 
@@ -29,13 +30,13 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual bool AllowClientCredentialsOnly { get; set; }
 
-        public virtual ICollection<ClientRedirectUri> RedirectUris { get; set; }
+        public virtual ICollection<ClientRedirectUri<TKey>> RedirectUris { get; set; }
 
-        public virtual ICollection<ClientPostLogoutRedirectUri> PostLogoutRedirectUris { get; set; }
+        public virtual ICollection<ClientPostLogoutRedirectUri<TKey>> PostLogoutRedirectUris { get; set; }
 
         public virtual bool AllowAccessToAllScopes { get; set; }
 
-        public virtual ICollection<ClientScope> AllowedScopes { get; set; }
+        public virtual ICollection<ClientScope<TKey>> AllowedScopes { get; set; }
 
         // Seconds
         [Range(0, Int32.MaxValue)]
@@ -63,11 +64,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual bool EnableLocalLogin { get; set; }
 
-        public virtual ICollection<ClientProviderRestriction> IdentityProviderRestrictions { get; set; }
+        public virtual ICollection<ClientProviderRestriction<TKey>> IdentityProviderRestrictions { get; set; }
 
         public virtual bool IncludeJwtId { get; set; }
 
-        public virtual ICollection<ClientClaim> Claims { get; set; }
+        public virtual ICollection<ClientClaim<TKey>> Claims { get; set; }
 
         public virtual bool AlwaysSendClientClaims { get; set; }
 
@@ -75,8 +76,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual bool AllowAccessToAllGrantTypes { get; set; }
 
-        public virtual ICollection<ClientCustomGrantType> AllowedCustomGrantTypes { get; set; }
+        public virtual ICollection<ClientCustomGrantType<TKey>> AllowedCustomGrantTypes { get; set; }
 
-        public virtual ICollection<ClientCorsOrigin> AllowedCorsOrigins { get; set; }
+        public virtual ICollection<ClientCorsOrigin<TKey>> AllowedCorsOrigins { get; set; }
     }
 }
