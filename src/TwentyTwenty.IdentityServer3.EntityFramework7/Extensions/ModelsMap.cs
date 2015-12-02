@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
-using Entities = TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace IdentityServer3.Core.Models
 {
