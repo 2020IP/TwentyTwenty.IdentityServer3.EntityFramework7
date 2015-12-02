@@ -1,39 +1,39 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
+using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ScopeConfigurationContext : BaseContext, IScopeConfigurationContext
+    public class ScopeConfigurationContext<TKey> : BaseContext, IScopeConfigurationContext<TKey>
+        where TKey : IEquatable<TKey>
     {
         public ScopeConfigurationContext(DbContextOptions options)
             : base(options)
         { }
 
-        public DbSet<Scope> Scopes { get; set; }
+        public DbSet<Scope<TKey>> Scopes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ScopeClaim>()
-                .ToTable(EfConstants.TableNames.ScopeClaim)
-                .Property(e => e.Name).IsRequired().HasMaxLength(200);
-            modelBuilder.Entity<ScopeClaim>()
-                .Property(e => e.Description).HasMaxLength(1000);
-
-            modelBuilder.Entity<Scope>()
-                .ToTable(EfConstants.TableNames.Scope)
-                .HasMany(e => e.ScopeClaims).WithOne(e => e.Scope).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Scope>()
-                .Property(e => e.Name).IsRequired().HasMaxLength(200);
-            modelBuilder.Entity<Scope>()
-                .Property(e => e.DisplayName).HasMaxLength(200);
-            modelBuilder.Entity<Scope>()
-                .Property(e => e.Description).HasMaxLength(1000);
-            modelBuilder.Entity<Scope>()
-                .Property(e => e.ClaimsRule).HasMaxLength(200);
-
+            modelBuilder.Entity<ScopeClaim<TKey>>(b =>
+            {
+                b.ToTable(EfConstants.TableNames.ScopeClaim);
+                b.Property(e => e.Name).IsRequired().HasMaxLength(200);
+                b.Property(e => e.Description).HasMaxLength(1000);
+            });
+                
+            modelBuilder.Entity<Scope<TKey>>(b =>
+            {
+                b.ToTable(EfConstants.TableNames.Scope);
+                b.HasMany(e => e.ScopeClaims).WithOne(e => e.Scope).OnDelete(DeleteBehavior.Cascade);                
+                b.Property(e => e.Name).IsRequired().HasMaxLength(200);
+                b.Property(e => e.DisplayName).HasMaxLength(200);
+                b.Property(e => e.Description).HasMaxLength(1000);
+                b.Property(e => e.ClaimsRule).HasMaxLength(200);
+            });
         }
         //protected override void ConfigureChildCollections()
         //{
@@ -48,7 +48,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
         //                }
         //            }
         //        };
-        //}
-        
+        //}        
     }
 }

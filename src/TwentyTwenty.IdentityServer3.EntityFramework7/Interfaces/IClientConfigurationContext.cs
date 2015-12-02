@@ -4,8 +4,9 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces
 {
-    public interface IClientConfigurationContext : IDisposable
+    public interface IClientConfigurationContext<TKey> : IDisposable
+        where TKey : IEquatable<TKey>
     {
-        DbSet<Client> Clients { get; set; }
+        DbSet<Client<TKey>> Clients { get; set; }
     }
 }

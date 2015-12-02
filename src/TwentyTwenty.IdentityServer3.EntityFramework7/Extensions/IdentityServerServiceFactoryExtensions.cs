@@ -2,7 +2,6 @@
 using IdentityServer3.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TwentyTwenty.IdentityServer3.EntityFramework7.Registrations;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
 {
@@ -37,7 +36,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             services.ThrowIfClientConfigurationServicesNotRegistered();
             
             factory.ClientStore = services.GetRegistration<IClientStore>();
-            factory.CorsPolicyService = new ClientConfigurationCorsPolicyRegistration(services);
+            factory.CorsPolicyService = services.GetRegistration<ICorsPolicyService>();
 
             return factory;
         }

@@ -1,20 +1,21 @@
 ﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public static class EntitiesMap
+    public static class EntitiesMap<TKey> where TKey : IEquatable<TKey>
     {
         static EntitiesMap()
         {
-            Mapper.CreateMap<Entities.Scope, Models.Scope>(MemberList.Destination)
+            Mapper.CreateMap<Entities.Scope<TKey>, Models.Scope>(MemberList.Destination)
                 .ForMember(x => x.Claims, opts => opts.MapFrom(src => src.ScopeClaims.Select(x => x)));
-            Mapper.CreateMap<Entities.ScopeClaim, Models.ScopeClaim>(MemberList.Destination);
+            Mapper.CreateMap<Entities.ScopeClaim<TKey>, Models.ScopeClaim>(MemberList.Destination);
 
-            Mapper.CreateMap<Entities.ClientSecret, Models.Secret>(MemberList.Destination);
-            Mapper.CreateMap<Entities.Client, Models.Client>(MemberList.Destination)
+            Mapper.CreateMap<Entities.ClientSecret<TKey>, Models.Secret>(MemberList.Destination);
+            Mapper.CreateMap<Entities.Client<TKey>, Models.Client>(MemberList.Destination)
                 .ForMember(x => x.UpdateAccessTokenClaimsOnRefresh, opt => opt.MapFrom(src => src.UpdateAccessTokenOnRefresh))
                 .ForMember(x => x.AllowAccessToAllCustomGrantTypes, opt => opt.MapFrom(src => src.AllowAccessToAllGrantTypes))
                 .ForMember(x => x.AllowedCustomGrantTypes, opt => opt.MapFrom(src => src.AllowedCustomGrantTypes.Select(x => x.GrantType)))
@@ -26,15 +27,31 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
                 .ForMember(x => x.Claims, opt => opt.MapFrom(src => src.Claims.Select(x => new Claim(x.Type, x.Value))));
         }
 
-        public static Models.Scope ToModel(this Entities.Scope s)
+        public static Models.Scope ToModel(Entities.Scope<TKey> s)
         {
-            return s == null ? null : Mapper.Map<Entities.Scope, Models.Scope>(s);
+            return s == null ? null : Mapper.Map<Entities.Scope<TKey>, Models.Scope>(s);
         }
 
-        public static Models.Client ToModel(this Entities.Client s)
+        public static Models.Client ToModel(Entities.Client<TKey> s)
         {
             if (s == null) return null;
-            return Mapper.Map<Entities.Client, Models.Client>(s);
+            return Mapper.Map<Entities.Client<TKey>, Models.Client>(s);
+        }
+    }
+
+    public static class MappingExtensions
+    {
+
+        public static Models.Scope ToModel<TKey>(this Entities.Scope<TKey> s)
+            where TKey : IEquatable<TKey>
+        {
+            return EntitiesMap<TKey>.ToModel(s);
+        }
+
+        public static Models.Client ToModel<TKey>(this Entities.Client<TKey> s)
+            where TKey : IEquatable<TKey>
+        {
+            return EntitiesMap<TKey>.ToModel(s);
         }
     }
 }

@@ -8,11 +8,12 @@ using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
-    public class ClientStore : IClientStore
+    public class ClientStore<TKey> : IClientStore
+        where TKey : IEquatable<TKey>
     {
-        private readonly IClientConfigurationContext context;
+        private readonly IClientConfigurationContext<TKey> context;
 
-        public ClientStore(IClientConfigurationContext context)
+        public ClientStore(IClientConfigurationContext<TKey> context)
         {
             if (context == null) throw new ArgumentNullException("context");
 

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Consent
+    public class Consent<TKey>
+        where TKey : IEquatable<TKey>
     {
         public virtual string Subject { get; set; }
         

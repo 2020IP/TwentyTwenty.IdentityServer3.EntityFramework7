@@ -10,11 +10,12 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
-    public class ScopeStore : IScopeStore
+    public class ScopeStore<TKey> : IScopeStore
+        where TKey : IEquatable<TKey>
     {
-        private readonly IScopeConfigurationContext _context;
+        private readonly IScopeConfigurationContext<TKey> _context;
 
-        public ScopeStore(IScopeConfigurationContext context)
+        public ScopeStore(IScopeConfigurationContext<TKey> context)
         {
             if (context == null)
             {

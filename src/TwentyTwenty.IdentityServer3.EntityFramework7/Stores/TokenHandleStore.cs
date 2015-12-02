@@ -6,16 +6,17 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
-    public class TokenHandleStore : BaseTokenStore<Token>, ITokenHandleStore
+    public class TokenHandleStore<TKey> : BaseTokenStore<Token, TKey>, ITokenHandleStore
+            where TKey : IEquatable<TKey>
     {
-        public TokenHandleStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
+        public TokenHandleStore(OperationalContext<TKey> context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, Entities.TokenType.TokenHandle, scopeStore, clientStore)
         {
         }
 
         public override async Task StoreAsync(string key, Token value)
         {
-            var efToken = new Entities.Token
+            var efToken = new Entities.Token<TKey>
             {
                 Key = key,
                 SubjectId = value.SubjectId,

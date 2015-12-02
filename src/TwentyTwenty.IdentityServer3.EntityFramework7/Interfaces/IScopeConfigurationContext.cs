@@ -4,8 +4,9 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces
 {
-    public interface IScopeConfigurationContext : IDisposable
+    public interface IScopeConfigurationContext<TKey> : IDisposable
+        where TKey : IEquatable<TKey>
     {
-        DbSet<Scope> Scopes { get; set; }
+        DbSet<Scope<TKey>> Scopes { get; set; }
     }
 }

@@ -2,7 +2,8 @@
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class ClientSecret
+    public class ClientSecret<TKey>
+        where TKey : IEquatable<TKey>
     {
         public virtual Guid Id { get; set; }
 
@@ -14,6 +15,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual DateTimeOffset? Expiration { get; set; }
 
-        public virtual Client Client { get; set; }
+        public virtual Client<TKey> Client { get; set; }
     }
 }

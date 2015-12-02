@@ -1,10 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Token
+    public class Token<TKey>
+        where TKey : IEquatable<TKey>
     {
         public virtual string Key { get; set; }
         

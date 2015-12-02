@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -7,29 +8,29 @@ using Entities = TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace IdentityServer3.Core.Models
 {
-    public static class EntitiesMap
+    public static class ModelsMap<TKey> where TKey : IEquatable<TKey>
     {
-        static EntitiesMap()
+        static ModelsMap()
         {
-            Mapper.CreateMap<Scope, Entities.Scope>(MemberList.Source)
+            Mapper.CreateMap<Scope, Entities.Scope<TKey>>(MemberList.Source)
                 .ForSourceMember(x => x.Claims, opts => opts.Ignore())
                 .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)));
-            Mapper.CreateMap<ScopeClaim, Entities.ScopeClaim>(MemberList.Source);
+            Mapper.CreateMap<ScopeClaim, Entities.ScopeClaim<TKey>>(MemberList.Source);
 
-            Mapper.CreateMap<Secret, ClientSecret>(MemberList.Source);
-            Mapper.CreateMap<Client, Entities.Client>(MemberList.Source)
+            Mapper.CreateMap<Secret, ClientSecret<TKey>>(MemberList.Source);
+            Mapper.CreateMap<Client, Entities.Client<TKey>>(MemberList.Source)
                 .ForMember(x => x.UpdateAccessTokenOnRefresh, opt => opt.MapFrom(src => src.UpdateAccessTokenClaimsOnRefresh))
                 .ForMember(x => x.AllowAccessToAllGrantTypes, opt => opt.MapFrom(src => src.AllowAccessToAllCustomGrantTypes))
-                .ForMember(x => x.AllowedCustomGrantTypes, opt => opt.MapFrom(src => src.AllowedCustomGrantTypes.Select(x => new ClientCustomGrantType { GrantType = x })))
-                .ForMember(x => x.RedirectUris, opt => opt.MapFrom(src => src.RedirectUris.Select(x => new ClientRedirectUri { Uri = x })))
-                .ForMember(x => x.PostLogoutRedirectUris, opt => opt.MapFrom(src => src.PostLogoutRedirectUris.Select(x => new ClientPostLogoutRedirectUri { Uri = x })))
-                .ForMember(x => x.IdentityProviderRestrictions, opt => opt.MapFrom(src => src.IdentityProviderRestrictions.Select(x => new ClientProviderRestriction{ Provider = x })))
-                .ForMember(x => x.AllowedScopes, opt => opt.MapFrom(src => src.AllowedScopes.Select(x => new ClientScope { Scope = x })))
-                .ForMember(x => x.AllowedCorsOrigins, opt => opt.MapFrom(src => src.AllowedCorsOrigins.Select(x => new ClientCorsOrigin { Origin = x })))
-                .ForMember(x => x.Claims, opt => opt.MapFrom(src => src.Claims.Select(x => new ClientClaim { Type = x.Type, Value = x.Value })));
+                .ForMember(x => x.AllowedCustomGrantTypes, opt => opt.MapFrom(src => src.AllowedCustomGrantTypes.Select(x => new ClientCustomGrantType<TKey> { GrantType = x })))
+                .ForMember(x => x.RedirectUris, opt => opt.MapFrom(src => src.RedirectUris.Select(x => new ClientRedirectUri<TKey> { Uri = x })))
+                .ForMember(x => x.PostLogoutRedirectUris, opt => opt.MapFrom(src => src.PostLogoutRedirectUris.Select(x => new ClientPostLogoutRedirectUri<TKey> { Uri = x })))
+                .ForMember(x => x.IdentityProviderRestrictions, opt => opt.MapFrom(src => src.IdentityProviderRestrictions.Select(x => new ClientProviderRestriction<TKey> { Provider = x })))
+                .ForMember(x => x.AllowedScopes, opt => opt.MapFrom(src => src.AllowedScopes.Select(x => new ClientScope<TKey> { Scope = x })))
+                .ForMember(x => x.AllowedCorsOrigins, opt => opt.MapFrom(src => src.AllowedCorsOrigins.Select(x => new ClientCorsOrigin<TKey> { Origin = x })))
+                .ForMember(x => x.Claims, opt => opt.MapFrom(src => src.Claims.Select(x => new ClientClaim<TKey> { Type = x.Type, Value = x.Value })));
         }
 
-        public static Entities.Scope ToEntity(this Scope s)
+        public static Scope<TKey> ToEntity(Scope s)
         {
             if (s == null)
             {
@@ -40,10 +41,10 @@ namespace IdentityServer3.Core.Models
                 s.Claims = new List<ScopeClaim>();
             }
 
-            return Mapper.Map<Scope, Entities.Scope>(s);
+            return Mapper.Map<Scope, Scope<TKey>>(s);
         }
 
-        public static Entities.Client ToEntity(this Client s)
+        public static Client<TKey> ToEntity(Client s)
         {
             if (s == null)
             {
@@ -82,7 +83,22 @@ namespace IdentityServer3.Core.Models
                 s.AllowedCorsOrigins = new List<string>();
             }
 
-            return Mapper.Map<Client, Entities.Client>(s);
+            return Mapper.Map<Client, Client<TKey>>(s);
+        }
+    }
+
+    public static class MappingExtensions
+    {
+        public static Scope<TKey> ToEntity<TKey>(this Scope s)
+            where TKey : IEquatable<TKey>
+        {
+            return ModelsMap<TKey>.ToEntity(s);
+        }
+
+        public static Client<TKey> ToEntity<TKey>(this Client s)
+            where TKey : IEquatable<TKey>
+        {
+            return ModelsMap<TKey>.ToEntity(s);
         }
     }
 }
