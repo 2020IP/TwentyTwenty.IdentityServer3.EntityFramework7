@@ -20,8 +20,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
         public override async Task StoreAsync(string key, RefreshToken value)
         {
-            var token = await context.Tokens
-                .Where(x => x.Key == key && x.TokenType == tokenType)
+            var token = await _context.Tokens
+                .Where(x => x.Key == key && x.TokenType == _tokenType)
                 .FirstOrDefaultAsync();
 
             if (token == null)
@@ -32,13 +32,13 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
                     SubjectId = value.SubjectId,
                     ClientId = value.ClientId,
                     JsonCode = ConvertToJson(value),
-                    TokenType = tokenType
+                    TokenType = _tokenType
                 };
-                context.Tokens.Add(token);
+                _context.Tokens.Add(token);
             }
 
-            token.Expiry = DateTimeOffset.UtcNow.AddSeconds(value.LifeTime);
-            await context.SaveChangesAsync();
+            token.Expiry = DateTime.UtcNow.AddSeconds(value.LifeTime);
+            await _context.SaveChangesAsync();
         }
     }
 }

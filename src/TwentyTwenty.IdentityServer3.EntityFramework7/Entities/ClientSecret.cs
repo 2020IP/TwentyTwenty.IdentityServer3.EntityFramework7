@@ -13,7 +13,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual string Description { get; set; }
 
-        public virtual DateTimeOffset? Expiration { get; set; }
+        public virtual DateTime? Expiration { get; set; }
 
         public virtual Client<TKey> Client { get; set; }
     }

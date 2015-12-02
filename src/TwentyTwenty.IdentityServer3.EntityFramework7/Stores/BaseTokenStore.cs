@@ -17,16 +17,16 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
     public abstract class BaseTokenStore<TEntity>
         where TEntity : class
     {
-        protected readonly OperationalContext context;
-        protected readonly TokenType tokenType;
-        protected readonly IScopeStore scopeStore;
-        private readonly IClientStore clientStore;
+        protected readonly OperationalContext _context;
+        protected readonly TokenType _tokenType;
+        protected readonly IScopeStore _scopeStore;
+        private readonly IClientStore _clientStore;
 
         protected IClientStore ClientStore
         {
             get
             {
-                return clientStore;
+                return _clientStore;
             }
         }
 
@@ -36,10 +36,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             if (scopeStore == null) throw new ArgumentNullException("scopeStore");
             if (clientStore == null) throw new ArgumentNullException("clientStore");
 
-            this.context = context;
-            this.tokenType = tokenType;
-            this.scopeStore = scopeStore;
-            this.clientStore = clientStore;
+            _context = context;
+            _tokenType = tokenType;
+            _scopeStore = scopeStore;
+            _clientStore = clientStore;
         }
 
         JsonSerializerSettings GetJsonSerializerSettings()
@@ -48,7 +48,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             settings.Converters.Add(new ClaimConverter());
             settings.Converters.Add(new ClaimsPrincipalConverter());
             settings.Converters.Add(new ClientConverter(ClientStore));
-            settings.Converters.Add(new ScopeConverter(scopeStore));
+            settings.Converters.Add(new ScopeConverter(_scopeStore));
             return settings;
         }
 
@@ -64,11 +64,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
         public async Task<TEntity> GetAsync(string key)
         {
-            var token = await context.Tokens
-                .Where(x => x.Key == key && x.TokenType == tokenType)
+            var token = await _context.Tokens
+                .Where(x => x.Key == key && x.TokenType == _tokenType)
                 .FirstOrDefaultAsync();
 
-            if (token == null || token.Expiry < DateTimeOffset.UtcNow)
+            if (token == null || token.Expiry < DateTime.UtcNow)
             {
                 return null;
             }
@@ -78,22 +78,22 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
         public async Task RemoveAsync(string key)
         {
-            var token = await context.Tokens
-                .Where(x => x.Key == key && x.TokenType == tokenType)
+            var token = await _context.Tokens
+                .Where(x => x.Key == key && x.TokenType == _tokenType)
                 .FirstOrDefaultAsync();
 
             if (token != null)
             {
-                context.Tokens.Remove(token);
-                await context.SaveChangesAsync();
+                _context.Tokens.Remove(token);
+                await _context.SaveChangesAsync();
             }
         }
 
         public async Task<IEnumerable<ITokenMetadata>> GetAllAsync(string subject)
         {
-            var tokens = await context.Tokens.Where(x =>
+            var tokens = await _context.Tokens.Where(x =>
                 x.SubjectId == subject &&
-                x.TokenType == tokenType).ToArrayAsync();
+                x.TokenType == _tokenType).ToArrayAsync();
 
             var results = tokens.Select(x => ConvertFromJson(x.JsonCode)).ToArray();
             return results.Cast<ITokenMetadata>();
@@ -101,13 +101,13 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
         public async Task RevokeAsync(string subject, string client)
         {
-            var found = context.Tokens.Where(x =>
+            var found = _context.Tokens.Where(x =>
                 x.SubjectId == subject &&
                 x.ClientId == client &&
-                x.TokenType == tokenType).ToArray();
+                x.TokenType == _tokenType).ToArray();
 
-            context.Tokens.RemoveRange(found);
-            await context.SaveChangesAsync();
+            _context.Tokens.RemoveRange(found);
+            await _context.SaveChangesAsync();
         }
 
         public abstract Task StoreAsync(string key, TEntity value);

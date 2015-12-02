@@ -14,6 +14,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
         
         public virtual string JsonCode { get; set; }
 
-        public virtual DateTimeOffset Expiry { get; set; }
+        public virtual DateTime Expiry { get; set; }
     }
 }

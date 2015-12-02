@@ -21,12 +21,12 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
                 SubjectId = value.SubjectId,
                 ClientId = value.ClientId,
                 JsonCode = ConvertToJson(value),
-                Expiry = DateTimeOffset.UtcNow.AddSeconds(value.Lifetime),
-                TokenType = this.tokenType
+                Expiry = DateTime.UtcNow.AddSeconds(value.Lifetime),
+                TokenType = this._tokenType
             };
 
-            context.Tokens.Add(efToken);
-            await context.SaveChangesAsync();
+            _context.Tokens.Add(efToken);
+            await _context.SaveChangesAsync();
         }
     }
 }
