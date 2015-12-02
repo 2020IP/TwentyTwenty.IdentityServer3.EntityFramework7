@@ -7,17 +7,16 @@ using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
-    public class AuthorizationCodeStore<TKey> : BaseTokenStore<AuthorizationCode, TKey>, IAuthorizationCodeStore
-            where TKey : IEquatable<TKey>
+    public class AuthorizationCodeStore : BaseTokenStore<AuthorizationCode>, IAuthorizationCodeStore
     {
-        public AuthorizationCodeStore(OperationalContext<TKey> context, IScopeStore scopeStore, IClientStore clientStore)
+        public AuthorizationCodeStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, TokenType.AuthorizationCode, scopeStore, clientStore)
         {
         }
 
         public override async Task StoreAsync(string key, AuthorizationCode code)
         {
-            var efCode = new Entities.Token<TKey>
+            var efCode = new Entities.Token
             {
                 Key = key,
                 SubjectId = code.SubjectId,

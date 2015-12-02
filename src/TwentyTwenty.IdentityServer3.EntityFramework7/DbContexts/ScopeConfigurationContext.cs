@@ -3,11 +3,10 @@ using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
-using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ScopeConfigurationContext<TKey> : BaseContext, IScopeConfigurationContext<TKey>
+    public class ScopeConfigurationContext<TKey> : BaseContext
         where TKey : IEquatable<TKey>
     {
         public ScopeConfigurationContext(DbContextOptions options)

@@ -14,11 +14,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     // TODO: FindAsync is slated to be back in the RTM of 7.0. 
     //      For how, Where and FirstOrDefaultAsync will have to make due
-    public abstract class BaseTokenStore<TEntity, TKey>
+    public abstract class BaseTokenStore<TEntity>
         where TEntity : class
-        where TKey : IEquatable<TKey>
     {
-        protected readonly OperationalContext<TKey> context;
+        protected readonly OperationalContext context;
         protected readonly TokenType tokenType;
         protected readonly IScopeStore scopeStore;
         private readonly IClientStore clientStore;
@@ -31,7 +30,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             }
         }
 
-        protected BaseTokenStore(OperationalContext<TKey> context, TokenType tokenType, IScopeStore scopeStore, IClientStore clientStore)
+        protected BaseTokenStore(OperationalContext context, TokenType tokenType, IScopeStore scopeStore, IClientStore clientStore)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (scopeStore == null) throw new ArgumentNullException("scopeStore");

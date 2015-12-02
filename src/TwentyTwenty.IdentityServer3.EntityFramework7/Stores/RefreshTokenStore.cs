@@ -11,10 +11,9 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     // TODO: FindAsync is slated to be back in the RTM of 7.0. 
     //      For how, Where and FirstOrDefaultAsync will have to make due
-    public class RefreshTokenStore<TKey> : BaseTokenStore<RefreshToken, TKey>, IRefreshTokenStore
-            where TKey : IEquatable<TKey>
+    public class RefreshTokenStore : BaseTokenStore<RefreshToken>, IRefreshTokenStore
     {
-        public RefreshTokenStore(OperationalContext<TKey> context, IScopeStore scopeStore, IClientStore clientStore)
+        public RefreshTokenStore(OperationalContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, TokenType.RefreshToken, scopeStore, clientStore)
         {
         }
@@ -27,7 +26,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
             if (token == null)
             {
-                token = new Entities.Token<TKey>
+                token = new Entities.Token
                 {
                     Key = key,
                     SubjectId = value.SubjectId,

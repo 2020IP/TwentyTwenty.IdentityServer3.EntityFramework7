@@ -1,25 +1,22 @@
 ﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
-using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
-using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class OperationalContext<TKey> : BaseContext, IOperationalContext<TKey>
-        where TKey : IEquatable<TKey>
+    public class OperationalContext : BaseContext
     {
         public OperationalContext(DbContextOptions options)
             : base(options)
         { }
 
-        public DbSet<Consent<TKey>> Consents { get; set; }
+        public DbSet<Consent> Consents { get; set; }
 
-        public DbSet<Token<TKey>> Tokens { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Consent<TKey>>(b =>
+            modelBuilder.Entity<Consent>(b =>
             {
                 b.ToTable(EfConstants.TableNames.Consent);
                 b.Property(e => e.Subject).HasMaxLength(200);
@@ -28,7 +25,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
                 b.HasKey(e => new { e.Subject, e.ClientId });
             });
             
-            modelBuilder.Entity<Token<TKey>>(b =>
+            modelBuilder.Entity<Token>(b =>
             {
                 b.ToTable(EfConstants.TableNames.Token);
                 b.Property(e => e.SubjectId).HasMaxLength(200);

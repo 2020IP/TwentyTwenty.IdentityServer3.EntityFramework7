@@ -2,8 +2,7 @@
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Token<TKey>
-        where TKey : IEquatable<TKey>
+    public class Token
     {
         public virtual string Key { get; set; }
         

@@ -3,11 +3,10 @@ using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
-using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
-    public class ClientConfigurationContext<TKey> : BaseContext, IClientConfigurationContext<TKey>
+    public class ClientConfigurationContext<TKey> : BaseContext
         where TKey : IEquatable<TKey>
     {
         public ClientConfigurationContext(DbContextOptions options)

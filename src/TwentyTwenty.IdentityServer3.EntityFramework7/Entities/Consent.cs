@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
+﻿namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 {
-    public class Consent<TKey>
-        where TKey : IEquatable<TKey>
+    public class Consent
     {
         public virtual string Subject { get; set; }
         

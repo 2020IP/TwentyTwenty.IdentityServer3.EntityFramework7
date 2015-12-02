@@ -11,12 +11,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     // TODO: FindAsync is slated to be back in the RTM of 7.0. 
     //      For how, Where and FirstOrDefaultAsync will have to make due
-    public class ConsentStore<TKey> : IConsentStore
-            where TKey : IEquatable<TKey>
+    public class ConsentStore : IConsentStore
     {
-        private readonly OperationalContext<TKey> context;
+        private readonly OperationalContext context;
 
-        public ConsentStore(OperationalContext<TKey> context)
+        public ConsentStore(OperationalContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 
@@ -52,7 +51,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
             if (item == null)
             {
-                item = new Entities.Consent<TKey>
+                item = new Entities.Consent
                 {
                     Subject = consent.Subject,
                     ClientId = consent.ClientId

@@ -8,7 +8,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
     public class Client<TKey>
         where TKey : IEquatable<TKey>
     {
-        public virtual Guid Id { get; set; }
+        public virtual TKey Id { get; set; }
 
         public virtual bool Enabled { get; set; }
 

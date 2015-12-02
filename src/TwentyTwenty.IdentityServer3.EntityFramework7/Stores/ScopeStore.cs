@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using Models = IdentityServer3.Core.Models;
 using Microsoft.Data.Entity;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
-using TwentyTwenty.IdentityServer3.EntityFramework7.Interfaces;
+using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {
     public class ScopeStore<TKey> : IScopeStore
         where TKey : IEquatable<TKey>
     {
-        private readonly IScopeConfigurationContext<TKey> _context;
+        private readonly ScopeConfigurationContext<TKey> _context;
 
-        public ScopeStore(IScopeConfigurationContext<TKey> context)
+        public ScopeStore(ScopeConfigurationContext<TKey> context)
         {
             if (context == null)
             {
