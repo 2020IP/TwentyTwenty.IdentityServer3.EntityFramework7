@@ -1,6 +1,5 @@
 ﻿using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Services;
@@ -10,11 +9,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
 {
     public static class IdentityServerServiceFactoryExtensions
     {
-        public static IdentityServerServiceFactory RegisterOperationalServices(this IdentityServerServiceFactory factory, Func<OperationalContext> contextResolver)
+        public static IdentityServerServiceFactory RegisterOperationalStores(this IdentityServerServiceFactory factory, Func<OperationalContext> contextResolver)
         {
             if (factory == null) throw new ArgumentNullException("factory");
             if (contextResolver == null) throw new ArgumentNullException("contextResolver");
-            //services.ThrowIfOperationalServicesNotRegistered();
 
             factory.Register(new Registration<OperationalContext>(r => contextResolver()));
 
@@ -45,18 +43,12 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
         {
             if (factory == null) throw new ArgumentNullException("factory");
             if (contextResolver == null) throw new ArgumentNullException("contextResolver");
-            //services.ThrowIfScopeContextNotRegistered();
-
+            
             factory.Register(new Registration<ScopeConfigurationContext<TKey>>(r => contextResolver()));
 
             factory.ScopeStore = new Registration<IScopeStore, ScopeStore<TKey>>();
 
             return factory;
-        }
-
-        private static Registration<T> GetRegistration<T>(this IServiceProvider services) where T : class
-        {
-            return new Registration<T>(resolver => services.GetService<T>());
         }
     }
 }
