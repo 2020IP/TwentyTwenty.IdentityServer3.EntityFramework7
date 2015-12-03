@@ -32,7 +32,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             if (factory == null) throw new ArgumentNullException("factory");
             if (services == null) throw new ArgumentNullException("services");
 
-            factory.Register(services.GetRegistration<TContext>());
+            factory.Register(new Registration<ClientConfigurationContext<TKey>>(r => services.GetRequiredService<TContext>()));
             
             factory.ClientStore = services.GetRegistration<IClientStore>();
             factory.CorsPolicyService = new Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService<TKey>>();
@@ -47,7 +47,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             if (factory == null) throw new ArgumentNullException("factory");
             if (services == null) throw new ArgumentNullException("services");
 
-            factory.Register(services.GetRegistration<TContext>());
+            factory.Register(new Registration<ScopeConfigurationContext<TKey>>(r => services.GetRequiredService<TContext>()));
 
             factory.ScopeStore = services.GetRegistration<IScopeStore>();
 
