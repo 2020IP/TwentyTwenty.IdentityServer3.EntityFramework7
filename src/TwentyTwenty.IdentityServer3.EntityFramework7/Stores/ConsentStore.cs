@@ -25,7 +25,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
         public async Task<Models.Consent> LoadAsync(string subject, string client)
         {
             var found = await context.Consents
-                .Where(x => x.Subject == subject && x.ClientId == client)
+                .Where(x => x.SubjectId == subject && x.ClientId == client)
                 .FirstOrDefaultAsync();
 
             if (found == null)
@@ -35,7 +35,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 
             var result = new Models.Consent
             {
-                Subject = found.Subject,
+                Subject = found.SubjectId,
                 ClientId = found.ClientId,
                 Scopes = ParseScopes(found.Scopes)
             };
@@ -46,14 +46,14 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
         public async Task UpdateAsync(Models.Consent consent)
         {
             var item = await context.Consents
-                .Where(x => x.Subject == consent.Subject && x.ClientId == consent.ClientId)
+                .Where(x => x.SubjectId == consent.Subject && x.ClientId == consent.ClientId)
                 .FirstOrDefaultAsync();
 
             if (item == null)
             {
                 item = new Entities.Consent
                 {
-                    Subject = consent.Subject,
+                    SubjectId = consent.Subject,
                     ClientId = consent.ClientId
                 };
                 context.Consents.Add(item);
@@ -72,11 +72,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
         public async Task<IEnumerable<Models.Consent>> LoadAllAsync(string subject)
         {
             var found = await context.Consents
-                .Where(x => x.Subject == subject).ToArrayAsync();
+                .Where(x => x.SubjectId == subject).ToArrayAsync();
 
             var results = found.Select(x => new Models.Consent
             {
-                Subject = x.Subject,
+                Subject = x.SubjectId,
                 ClientId = x.ClientId,
                 Scopes = ParseScopes(x.Scopes)
             });
@@ -107,7 +107,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
         public async Task RevokeAsync(string subject, string client)
         {
             var found = await context.Consents
-                .Where(x => x.Subject == subject && x.ClientId == client)
+                .Where(x => x.SubjectId == subject && x.ClientId == client)
                 .FirstOrDefaultAsync();
 
             if (found != null)

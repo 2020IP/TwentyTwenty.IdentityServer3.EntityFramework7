@@ -19,10 +19,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
             modelBuilder.Entity<Consent>(b =>
             {
                 b.ToTable(EfConstants.TableNames.Consent);
-                b.Property(e => e.Subject).HasMaxLength(200);
+                b.Property(e => e.SubjectId).HasMaxLength(200);
                 b.Property(e => e.ClientId).HasMaxLength(200);
                 b.Property(e => e.Scopes).IsRequired().HasMaxLength(2000);
-                b.HasKey(e => new { e.Subject, e.ClientId });
+                b.HasKey(e => new { e.SubjectId, e.ClientId });
             });
             
             modelBuilder.Entity<Token>(b =>
