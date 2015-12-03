@@ -1,5 +1,6 @@
 ﻿using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Services;
@@ -9,46 +10,51 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
 {
     public static class IdentityServerServiceFactoryExtensions
     {
-        public static IdentityServerServiceFactory RegisterOperationalStores(this IdentityServerServiceFactory factory, Func<OperationalContext> contextResolver)
+        public static IdentityServerServiceFactory RegisterOperationalStores(this IdentityServerServiceFactory factory, IServiceProvider services)
         {
             if (factory == null) throw new ArgumentNullException("factory");
-            if (contextResolver == null) throw new ArgumentNullException("contextResolver");
+            if (services == null) throw new ArgumentNullException("services");
 
-            factory.Register(new Registration<OperationalContext>(r => contextResolver()));
+            factory.Register(services.GetRegistration<OperationalContext>());
 
-            factory.AuthorizationCodeStore = new Registration<IAuthorizationCodeStore, AuthorizationCodeStore>();
-            factory.TokenHandleStore = new Registration<ITokenHandleStore, TokenHandleStore>();
-            factory.ConsentStore = new Registration<IConsentStore, ConsentStore>();
-            factory.RefreshTokenStore = new Registration<IRefreshTokenStore, RefreshTokenStore>();
+            factory.AuthorizationCodeStore = services.GetRegistration<IAuthorizationCodeStore>();
+            factory.TokenHandleStore = services.GetRegistration<ITokenHandleStore>();
+            factory.ConsentStore = services.GetRegistration<IConsentStore>();
+            factory.RefreshTokenStore = services.GetRegistration<IRefreshTokenStore>();
 
             return factory;
         }
         
-        public static IdentityServerServiceFactory RegisterClientStore<TKey>(this IdentityServerServiceFactory factory, Func<ClientConfigurationContext<TKey>> contextResolver)
+        public static IdentityServerServiceFactory RegisterClientStore<TKey>(this IdentityServerServiceFactory factory, IServiceProvider services)
             where TKey : IEquatable<TKey>
         {
             if (factory == null) throw new ArgumentNullException("factory");
-            if (contextResolver == null) throw new ArgumentNullException("contextResolver");
-            
-            factory.Register(new Registration<ClientConfigurationContext<TKey>>(r => contextResolver()));
+            if (services == null) throw new ArgumentNullException("services");
 
-            factory.ClientStore = new Registration<IClientStore, ClientStore<TKey>>();
+            factory.Register(services.GetRegistration<ClientConfigurationContext<TKey>>());
+            
+            factory.ClientStore = services.GetRegistration<IClientStore>();
             factory.CorsPolicyService = new Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService<TKey>>();
 
             return factory;
         }
 
-        public static IdentityServerServiceFactory RegisterScopeStore<TKey>(this IdentityServerServiceFactory factory, Func<ScopeConfigurationContext<TKey>> contextResolver)
+        public static IdentityServerServiceFactory RegisterScopeStore<TKey>(this IdentityServerServiceFactory factory, IServiceProvider services)
             where TKey : IEquatable<TKey>
         {
             if (factory == null) throw new ArgumentNullException("factory");
-            if (contextResolver == null) throw new ArgumentNullException("contextResolver");
-            
-            factory.Register(new Registration<ScopeConfigurationContext<TKey>>(r => contextResolver()));
+            if (services == null) throw new ArgumentNullException("services");
 
-            factory.ScopeStore = new Registration<IScopeStore, ScopeStore<TKey>>();
+            factory.Register(services.GetRegistration<ScopeConfigurationContext<TKey>>());
+
+            factory.ScopeStore = services.GetRegistration<IScopeStore>();
 
             return factory;
+        }
+
+        private static Registration<T> GetRegistration<T>(this IServiceProvider services) where T : class
+        {
+            return new Registration<T>(resolver => services.GetRequiredService<T>());
         }
     }
 }
