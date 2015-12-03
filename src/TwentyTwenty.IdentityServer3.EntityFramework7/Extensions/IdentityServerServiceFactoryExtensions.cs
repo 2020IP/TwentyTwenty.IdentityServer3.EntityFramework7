@@ -13,7 +13,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
         public static IdentityServerServiceFactory RegisterOperationalStores(this IdentityServerServiceFactory factory, IServiceProvider services)
         {
             if (factory == null) throw new ArgumentNullException("factory");
-            if (services == null) throw new ArgumentNullException("services");
+            if (services == null) throw new ArgumentNullException("sevices");
 
             factory.Register(services.GetRegistration<OperationalContext>());
 
@@ -25,13 +25,14 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             return factory;
         }
         
-        public static IdentityServerServiceFactory RegisterClientStore<TKey>(this IdentityServerServiceFactory factory, IServiceProvider services)
+        public static IdentityServerServiceFactory RegisterClientStore<TKey, TContext>(this IdentityServerServiceFactory factory, IServiceProvider services)
             where TKey : IEquatable<TKey>
+            where TContext : ClientConfigurationContext<TKey>
         {
             if (factory == null) throw new ArgumentNullException("factory");
             if (services == null) throw new ArgumentNullException("services");
 
-            factory.Register(services.GetRegistration<ClientConfigurationContext<TKey>>());
+            factory.Register(services.GetRegistration<TContext>());
             
             factory.ClientStore = services.GetRegistration<IClientStore>();
             factory.CorsPolicyService = new Registration<ICorsPolicyService, ClientConfigurationCorsPolicyService<TKey>>();
@@ -39,13 +40,14 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
             return factory;
         }
 
-        public static IdentityServerServiceFactory RegisterScopeStore<TKey>(this IdentityServerServiceFactory factory, IServiceProvider services)
+        public static IdentityServerServiceFactory RegisterScopeStore<TKey, TContext>(this IdentityServerServiceFactory factory, IServiceProvider services)
             where TKey : IEquatable<TKey>
+            where TContext : ScopeConfigurationContext<TKey>
         {
             if (factory == null) throw new ArgumentNullException("factory");
             if (services == null) throw new ArgumentNullException("services");
 
-            factory.Register(services.GetRegistration<ScopeConfigurationContext<TKey>>());
+            factory.Register(services.GetRegistration<TContext>());
 
             factory.ScopeStore = services.GetRegistration<IScopeStore>();
 
