@@ -12,10 +12,10 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<ITokenHandleStore, TokenHandleStore>()
-                .AddTransient<IAuthorizationCodeStore, AuthorizationCodeStore>()
-                .AddTransient<IConsentStore, ConsentStore>()
-                .AddTransient<IRefreshTokenStore, RefreshTokenStore>();
+                .AddScoped<ITokenHandleStore, TokenHandleStore>()
+                .AddScoped<IAuthorizationCodeStore, AuthorizationCodeStore>()
+                .AddScoped<IConsentStore, ConsentStore>()
+                .AddScoped<IRefreshTokenStore, RefreshTokenStore>();
         }
 
         public static IServiceCollection AddIdentityEFClientConfigurationServices<TKey>(this IServiceCollection services)
@@ -24,8 +24,8 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<IClientStore, ClientStore<TKey>>()
-                .AddTransient<ICorsPolicyService, ClientConfigurationCorsPolicyService<TKey>>();
+                .AddScoped<IClientStore, ClientStore<TKey>>()
+                .AddScoped<ICorsPolicyService, ClientConfigurationCorsPolicyService<TKey>>();
         }
 
         public static IServiceCollection AddIdentityEFScopeConfigurationServices<TKey>(this IServiceCollection services)
@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (services == null) throw new ArgumentNullException("services");
 
             return services
-                .AddTransient<IScopeStore, ScopeStore<TKey>>();
+                .AddScoped<IScopeStore, ScopeStore<TKey>>();
         }
 
         public static IServiceCollection AddIdentityEFServices<TKey>(this IServiceCollection services)

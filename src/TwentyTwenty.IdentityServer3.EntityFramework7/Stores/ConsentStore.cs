@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Extensions;
 using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
@@ -37,7 +38,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             {
                 Subject = found.SubjectId,
                 ClientId = found.ClientId,
-                Scopes = ParseScopes(found.Scopes)
+                Scopes = found.Scopes.ParseScopes()
             };
 
             return result;
@@ -64,7 +65,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
                 context.Consents.Remove(item);
             }
 
-            item.Scopes = StringifyScopes(consent.Scopes);
+            item.Scopes = consent.Scopes.StringifyScopes();
 
             await context.SaveChangesAsync();
         }
@@ -78,30 +79,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
             {
                 Subject = x.SubjectId,
                 ClientId = x.ClientId,
-                Scopes = ParseScopes(x.Scopes)
+                Scopes = x.Scopes.ParseScopes()
             });
 
             return results.ToArray().AsEnumerable();
-        }
-
-        private IEnumerable<string> ParseScopes(string scopes)
-        {
-            if (scopes == null || String.IsNullOrWhiteSpace(scopes))
-            {
-                return Enumerable.Empty<string>();
-            }
-
-            return scopes.Split(',');
-        }
-
-        private string StringifyScopes(IEnumerable<string> scopes)
-        {
-            if (scopes == null || !scopes.Any())
-            {
-                return null;
-            }
-
-            return scopes.Aggregate((s1, s2) => s1 + "," + s2);
         }
 
         public async Task RevokeAsync(string subject, string client)
