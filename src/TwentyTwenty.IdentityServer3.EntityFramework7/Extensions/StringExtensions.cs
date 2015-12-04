@@ -1,4 +1,7 @@
-﻿namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace TwentyTwenty.IdentityServer3.EntityFramework7.Extensions
 {
     internal static class StringExtensions
     {
@@ -19,6 +22,26 @@
             }
 
             return null;
+        }
+
+        public static IEnumerable<string> ParseScopes(this string scopes)
+        {
+            if (scopes == null || string.IsNullOrWhiteSpace(scopes))
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return scopes.Split(',');
+        }
+
+        public static string StringifyScopes(this IEnumerable<string> scopes)
+        {
+            if (scopes == null || !scopes.Any())
+            {
+                return null;
+            }
+
+            return scopes.Aggregate((s1, s2) => s1 + "," + s2);
         }
     }
 }

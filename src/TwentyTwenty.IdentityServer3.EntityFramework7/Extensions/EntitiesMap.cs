@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using TwentyTwenty.IdentityServer3.EntityFramework7.Extensions;
 using Models = IdentityServer3.Core.Models;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
@@ -40,8 +42,41 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
         }
     }
 
+    public static class EntitiesMap
+    {
+        static EntitiesMap()
+        {
+            Mapper.CreateMap<Consent, Models.Consent>(MemberList.Destination)
+                .ForMember(x => x.Scopes, opts => opts.MapFrom(src => src.Scopes.ParseScopes()));
+
+            Mapper.CreateMap<Token, Models.Token>(MemberList.Destination)
+                .ForAllMembers(opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode)));
+        }
+
+        public static Models.Consent ToModel(Consent s)
+        {
+            if (s == null) return null;
+            return Mapper.Map<Consent, Models.Consent>(s);
+        }
+
+        public static Models.Token ToModel(Token s)
+        {
+            if (s == null) return null;
+            return Mapper.Map<Token, Models.Token>(s);
+        }
+    }
+
     public static class MappingExtensions
     {
+        public static Models.Consent ToModel(this Consent s)
+        {
+            return EntitiesMap.ToModel(s);
+        }
+
+        public static Models.Token ToModel(this Token s)
+        {
+            return EntitiesMap.ToModel(s);
+        }
 
         public static Models.Scope ToModel<TKey>(this Scope<TKey> s)
             where TKey : IEquatable<TKey>
