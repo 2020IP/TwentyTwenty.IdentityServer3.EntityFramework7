@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Extensions;
@@ -32,12 +33,57 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public static Models.Scope ToModel(Scope<TKey> s)
         {
-            return s == null ? null : Mapper.Map<Scope<TKey>, Models.Scope>(s);
+            if (s == null)
+            {
+                return null;
+            }
+            if (s.ScopeClaims == null)
+            {
+                s.ScopeClaims = new List<ScopeClaim<TKey>>();
+            }
+
+            return Mapper.Map<Scope<TKey>, Models.Scope>(s);
         }
 
         public static Models.Client ToModel(Client<TKey> s)
         {
-            if (s == null) return null;
+            if (s == null)
+            {
+                return null;
+            }
+            if (s.ClientSecrets == null)
+            {
+                s.ClientSecrets = new List<ClientSecret<TKey>>();
+            }
+            if (s.RedirectUris == null)
+            {
+                s.RedirectUris = new List<ClientRedirectUri<TKey>>();
+            }
+            if (s.PostLogoutRedirectUris == null)
+            {
+                s.PostLogoutRedirectUris = new List<ClientPostLogoutRedirectUri<TKey>>();
+            }
+            if (s.AllowedScopes == null)
+            {
+                s.AllowedScopes = new List<ClientScope<TKey>>();
+            }
+            if (s.IdentityProviderRestrictions == null)
+            {
+                s.IdentityProviderRestrictions = new List<ClientProviderRestriction<TKey>>();
+            }
+            if (s.Claims == null)
+            {
+                s.Claims = new List<ClientClaim<TKey>>();
+            }
+            if (s.AllowedCustomGrantTypes == null)
+            {
+                s.AllowedCustomGrantTypes = new List<ClientCustomGrantType<TKey>>();
+            }
+            if (s.AllowedCorsOrigins == null)
+            {
+                s.AllowedCorsOrigins = new List<ClientCorsOrigin<TKey>>();
+            }
+
             return Mapper.Map<Client<TKey>, Models.Client>(s);
         }
     }
