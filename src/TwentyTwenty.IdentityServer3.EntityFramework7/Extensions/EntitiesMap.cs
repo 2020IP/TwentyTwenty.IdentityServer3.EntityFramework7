@@ -93,7 +93,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
         static EntitiesMap()
         {
             Mapper.CreateMap<Consent, Models.Consent>(MemberList.Destination)
-                .ForMember(x => x.Scopes, opts => opts.MapFrom(src => src.Scopes.ParseScopes()));
+                .ForMember(x => x.Scopes, opts => opts.MapFrom(src => src.Scopes.ParseScopes()))
+                .ForMember(x => x.Subject, opts => opts.MapFrom(src => src.SubjectId));
 
             Mapper.CreateMap<Token, Models.Token>(MemberList.Destination)
                 .ForAllMembers(opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode)));
