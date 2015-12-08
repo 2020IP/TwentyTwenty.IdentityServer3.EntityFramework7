@@ -39,10 +39,11 @@ Configure the `IdentityServerServiceFactory` to use the EF stores.
 public void Configure(IApplicationBuilder app)
 {
 	...
-	var factory = new IdentityServerServiceFactory()
-		.RegisterClientStore(() => app.ApplicationServices.GetService<ClientConfigurationContext>())
-		.RegisterScopeStore(() => app.ApplicationServices.GetService<ScopeConfigurationContext>())
-		.RegisterOperationalStores(() => app.ApplicationServices.GetService<OperationalContext>());
+	var factory = new IdentityServerServiceFactory();
+	factory.ConfigureEntityFramework(app.ApplicationServices)
+		.RegisterOperationalStores()
+		.RegisterClientStore<Guid, ClientConfigurationContext>()
+		.RegisterScopeStore<Guid, ScopeConfigurationContext>();
 
 	owinAppBuilder.UseIdentityServer(new IdentityServerOptions
 	{
