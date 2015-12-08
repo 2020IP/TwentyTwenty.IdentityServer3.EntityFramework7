@@ -23,6 +23,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual ICollection<ScopeClaim<TKey>> ScopeClaims { get; set; }
 
+        public virtual ICollection<ScopeSecret<TKey>> ScopeSecrets { get; set; }
+
         public virtual bool IncludeAllClaimsForUser { get; set; }
 
         public virtual string ClaimsRule { get; set; }

@@ -16,6 +16,8 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
             Mapper.CreateMap<Scope<TKey>, Models.Scope>(MemberList.Destination)
                 .ForMember(x => x.Claims, opts => opts.MapFrom(src => src.ScopeClaims.Select(x => x)));
             Mapper.CreateMap<ScopeClaim<TKey>, Models.ScopeClaim>(MemberList.Destination);
+            Mapper.CreateMap<ScopeSecret<TKey>, Models.Secret>(MemberList.Destination)
+                .ForMember(x => x.Expiration, opt => opt.MapFrom(src => src.Expiration.HasValue ? new DateTimeOffset?(src.Expiration.Value) : default(DateTimeOffset?)));
 
             Mapper.CreateMap<ClientSecret<TKey>, Models.Secret>(MemberList.Destination)
                 .ForMember(x => x.Expiration, opt => opt.MapFrom(src => src.Expiration.HasValue ? new DateTimeOffset?(src.Expiration.Value) : default(DateTimeOffset?)));
@@ -40,6 +42,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
             if (s.ScopeClaims == null)
             {
                 s.ScopeClaims = new List<ScopeClaim<TKey>>();
+            }
+            if (s.ScopeSecrets == null)
+            {
+                s.ScopeSecrets = new List<ScopeSecret<TKey>>();
             }
 
             return Mapper.Map<Scope<TKey>, Models.Scope>(s);

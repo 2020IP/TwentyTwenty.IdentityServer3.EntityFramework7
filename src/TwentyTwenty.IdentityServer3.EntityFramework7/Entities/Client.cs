@@ -22,6 +22,10 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public virtual string LogoUri { get; set; }
 
+        public string LogoutUri { get; set; }
+
+        public bool LogoutSessionRequired { get; set; }
+
         public virtual bool RequireConsent { get; set; }
 
         public virtual bool AllowRememberConsent { get; set; }

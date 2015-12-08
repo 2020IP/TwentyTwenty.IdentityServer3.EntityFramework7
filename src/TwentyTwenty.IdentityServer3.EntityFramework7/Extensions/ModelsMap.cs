@@ -15,6 +15,8 @@ namespace IdentityServer3.Core.Models
                 .ForSourceMember(x => x.Claims, opts => opts.Ignore())
                 .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)));
             Mapper.CreateMap<ScopeClaim, ScopeClaim<TKey>>(MemberList.Source);
+            Mapper.CreateMap<Secret, ScopeSecret<TKey>>(MemberList.Source)
+                .ForMember(x => x.Expiration, opt => opt.MapFrom(src => src.Expiration.HasValue ? src.Expiration.Value.UtcDateTime : default(DateTime?)));
 
             Mapper.CreateMap<Secret, ClientSecret<TKey>>(MemberList.Source)
                 .ForMember(x => x.Expiration, opt => opt.MapFrom(src => src.Expiration.HasValue ? src.Expiration.Value.UtcDateTime : default(DateTime?)));
@@ -39,6 +41,10 @@ namespace IdentityServer3.Core.Models
             if (s.Claims == null)
             {
                 s.Claims = new List<ScopeClaim>();
+            }
+            if (s.ScopeSecrets == null)
+            {
+                s.ScopeSecrets = new List<Secret>();
             }
 
             return Mapper.Map<Scope, Scope<TKey>>(s);
