@@ -2,7 +2,8 @@
 
 ###Entity Framework 7 persistence layer for [IdentityServer v3](https://github.com/IdentityServer/IdentityServer3)
 
-Appveyor Build: [![Build status](https://ci.appveyor.com/api/projects/status/a5fpfldw17icqq8l/branch/master?svg=true)](https://ci.appveyor.com/project/2020IP/twentytwenty-identityserver3-entityframework7/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/a5fpfldw17icqq8l/branch/master?svg=true)](https://ci.appveyor.com/project/2020IP/twentytwenty-identityserver3-entityframework7/branch/master)
+[![NuGet](https://img.shields.io/nuget/v/TwentyTwenty.IdentityServer3.EntityFramework7.svg)](https://www.nuget.org/packages/TwentyTwenty.IdentityServer3.EntityFramework7/)
 
 #### Usage
 The primary key type can be configured for ClientStore and ScopeStore.  To facilitate this, subclass the `ClientConfigurationContext<TKey>` and `ScopeConfigurationContext<TKey>` with the desired key type.
