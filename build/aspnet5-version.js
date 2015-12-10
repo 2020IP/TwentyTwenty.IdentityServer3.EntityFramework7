@@ -34,10 +34,10 @@ glob(baseDir + "/**/project.json", null, function(er, files) {
 });
 
 if (isRelease) {
-    semversion = semver.inc(buildVersion, 'patch');
+    var nextVersion = semver.inc(buildVersion, 'patch');
 
     // Modifiy appveyor.yml
-    var pscmd = "powershell -command \"& {(Get-Content appveyor.yml) -replace 'version: \\d+.\\d+.\\d+', 'version: " + semversion + "' | Out-File appveyor.yml}";
+    var pscmd = "powershell -command \"& {(Get-Content appveyor.yml) -replace 'version: \\d+.\\d+.\\d+', 'version: " + nextVersion + "' | Out-File appveyor.yml}";
     console.info("Incrementing app version.");
     console.info("Modify command: " + pscmd);
     exec(pscmd, function(error, stdout, stderr) {
