@@ -11,7 +11,7 @@
     "defaultNamespace": "TwentyTwenty.IdentityServer3.EntityFramework7"
   },
   "dependencies": {
-    "AutoMapper": "4.0.0",
+    "AutoMapper": "4.1.1",
     "Newtonsoft.Json": "7.0.1",
     "IdentityServer3": "2.2.3",
     "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
