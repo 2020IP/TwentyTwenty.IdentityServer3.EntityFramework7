@@ -34,7 +34,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7
             _factory.RefreshTokenStore = new Registration<IRefreshTokenStore, RefreshTokenStore>();
 
             return this;
-        }+
+        }
 
         public EntityFrameworkOptions RegisterClientStore<TKey, TClientContext>()
             where TKey : IEquatable<TKey>
