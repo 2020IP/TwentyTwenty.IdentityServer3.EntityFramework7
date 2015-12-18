@@ -11,7 +11,7 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
 
         public string Description { get; set; }
 
-        public DateTimeOffset? Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
 
         public string Type { get; set; }
 

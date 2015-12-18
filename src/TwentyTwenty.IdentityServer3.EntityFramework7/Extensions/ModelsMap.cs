@@ -32,7 +32,7 @@ namespace IdentityServer3.Core.Models
                 .ForMember(x => x.Claims, opt => opt.MapFrom(src => src.Claims.Select(x => new ClientClaim<TKey> { Type = x.Type, Value = x.Value })));
         }
 
-        public static Scope<TKey> ToEntity(Scope s)
+        public static Scope<TKey> ToEntity(Scope s, Scope<TKey> dest = null)
         {
             if (s == null)
             {
@@ -47,10 +47,10 @@ namespace IdentityServer3.Core.Models
                 s.ScopeSecrets = new List<Secret>();
             }
 
-            return Mapper.Map<Scope, Scope<TKey>>(s);
+            return Mapper.Map(s, dest);
         }
 
-        public static Client<TKey> ToEntity(Client s)
+        public static Client<TKey> ToEntity(Client s, Client<TKey> dest = null)
         {
             if (s == null)
             {
@@ -89,22 +89,22 @@ namespace IdentityServer3.Core.Models
                 s.AllowedCorsOrigins = new List<string>();
             }
 
-            return Mapper.Map<Client, Client<TKey>>(s);
+            return Mapper.Map(s, dest);
         }
     }
 
     public static class MappingExtensions
     {
-        public static Scope<TKey> ToEntity<TKey>(this Scope s)
+        public static Scope<TKey> ToEntity<TKey>(this Scope s, Scope<TKey> dest = null)
             where TKey : IEquatable<TKey>
         {
-            return ModelsMap<TKey>.ToEntity(s);
+            return ModelsMap<TKey>.ToEntity(s, dest);
         }
 
-        public static Client<TKey> ToEntity<TKey>(this Client s)
+        public static Client<TKey> ToEntity<TKey>(this Client s, Client<TKey> dest = null)
             where TKey : IEquatable<TKey>
         {
-            return ModelsMap<TKey>.ToEntity(s);
+            return ModelsMap<TKey>.ToEntity(s, dest);
         }
     }
 }
