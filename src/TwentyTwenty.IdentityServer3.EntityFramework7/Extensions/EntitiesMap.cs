@@ -103,7 +103,16 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
                 .ForMember(x => x.Subject, opts => opts.MapFrom(src => src.SubjectId));
 
             Mapper.CreateMap<Token, Models.Token>(MemberList.Destination)
-                .ForAllMembers(opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode)));
+                .ForMember(x => x.Scopes, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Scopes))
+                .ForMember(x => x.Audience, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Audience))
+                .ForMember(x => x.Client, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Client))
+                .ForMember(x => x.ClientId, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).ClientId))
+                .ForMember(x => x.CreationTime, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).CreationTime))
+                .ForMember(x => x.Issuer, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Issuer))
+                .ForMember(x => x.Lifetime, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Lifetime))
+                .ForMember(x => x.SubjectId, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).SubjectId))
+                .ForMember(x => x.Type, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Type))
+                .ForMember(x => x.Claims, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Claims));
         }
 
         public static Models.Consent ToModel(Consent s)
