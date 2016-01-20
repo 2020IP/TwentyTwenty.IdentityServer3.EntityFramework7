@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,18 +100,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
             Mapper.CreateMap<Consent, Models.Consent>(MemberList.Destination)
                 .ForMember(x => x.Scopes, opts => opts.MapFrom(src => src.Scopes.ParseScopes()))
                 .ForMember(x => x.Subject, opts => opts.MapFrom(src => src.SubjectId));
-
-            Mapper.CreateMap<Token, Models.Token>(MemberList.Destination)
-                .ForMember(x => x.Scopes, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Scopes))
-                .ForMember(x => x.Audience, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Audience))
-                .ForMember(x => x.Client, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Client))
-                .ForMember(x => x.ClientId, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).ClientId))
-                .ForMember(x => x.CreationTime, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).CreationTime))
-                .ForMember(x => x.Issuer, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Issuer))
-                .ForMember(x => x.Lifetime, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Lifetime))
-                .ForMember(x => x.SubjectId, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).SubjectId))
-                .ForMember(x => x.Type, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Type))
-                .ForMember(x => x.Claims, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<Models.Token>(src.JsonCode).Claims));
         }
 
         public static Models.Consent ToModel(Consent s)
@@ -120,22 +107,11 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.Entities
             if (s == null) return null;
             return Mapper.Map<Consent, Models.Consent>(s);
         }
-
-        public static Models.Token ToModel(Token s)
-        {
-            if (s == null) return null;
-            return Mapper.Map<Token, Models.Token>(s);
-        }
     }
 
     public static class MappingExtensions
     {
         public static Models.Consent ToModel(this Consent s)
-        {
-            return EntitiesMap.ToModel(s);
-        }
-
-        public static Models.Token ToModel(this Token s)
         {
             return EntitiesMap.ToModel(s);
         }
