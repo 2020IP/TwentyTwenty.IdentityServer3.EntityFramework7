@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models = IdentityServer3.Core.Models;
-using Microsoft.Data.Entity;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 using TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.Stores
 {

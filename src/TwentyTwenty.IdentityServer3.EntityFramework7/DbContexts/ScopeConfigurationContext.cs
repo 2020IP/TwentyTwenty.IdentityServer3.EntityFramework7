@@ -1,6 +1,5 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using TwentyTwenty.IdentityServer3.EntityFramework7.Entities;
 
@@ -42,20 +41,6 @@ namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
                 b.Property(e => e.Description).HasMaxLength(1000);
                 b.Property(e => e.ClaimsRule).HasMaxLength(200);
             });
-        }
-        //protected override void ConfigureChildCollections()
-        //{
-        //    this.Set<Scope>().Local.CollectionChanged +=
-        //        delegate (object sender, NotifyCollectionChangedEventArgs e)
-        //        {
-        //            if (e.Action == NotifyCollectionChangedAction.Add)
-        //            {
-        //                foreach (Scope item in e.NewItems)
-        //                {
-        //                    RegisterDeleteOnRemove(item.ScopeClaims);
-        //                }
-        //            }
-        //        };
-        //}        
+        }       
     }
 }

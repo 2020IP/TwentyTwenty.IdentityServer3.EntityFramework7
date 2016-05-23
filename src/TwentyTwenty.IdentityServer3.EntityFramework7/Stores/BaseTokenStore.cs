@@ -1,6 +1,6 @@
 ﻿using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

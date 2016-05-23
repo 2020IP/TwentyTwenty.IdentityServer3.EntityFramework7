@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TwentyTwenty.IdentityServer3.EntityFramework7.DbContexts
 {
